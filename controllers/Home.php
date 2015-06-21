@@ -3,10 +3,9 @@
 Class Home extends Controller {
 
 	public function index(){
-		$args = array(
-			'title' => 'Home/index',
-			'body' => 'hello world'
-		);
+		$homeModel = $this->getModel('Home_model');
+		$args = $homeModel->getContent();
+
 		$this->view->render('home/index', $args);
 	}
 
