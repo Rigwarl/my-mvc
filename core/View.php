@@ -2,16 +2,26 @@
 
 Class View {
 
-	public function render($name, $args = array()) {
-		$file = '../views/' . $name . '.php';
+	public $layout = 'default';
+	private $args = array();
 
-		extract($args);
+	public function render($view, $args = array()) {
+		$layout = '../views/layouts/' . $this->layout . '.php';
+		$this->args = $args;
 
-		if (file_exists($file)){
-			require_once $file;
-		} else {
-			throw new Exception("файл $file не существует");
-		}
+		require_once $layout;
 	}
 
+	public function loadSlice($slice){
+		$file = '../views/slices/' . $slice . '.php';
+
+		require_once $file;
+	}
+
+	public function loadView($view){
+		$file = '../views/' . $view . '.php';
+		extract($this->args);
+
+		require_once $file;
+	}
 }
