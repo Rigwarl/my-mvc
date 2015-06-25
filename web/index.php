@@ -1,8 +1,8 @@
 <?php
 
-require_once '../core/Bootstrap.php';
-require_once '../core/Controller.php';
-require_once '../core/Model.php';
-require_once '../core/View.php';
+require_once '../core/bootstrap.php';
+require_once '../core/controller.php';
+require_once '../core/model.php';
+require_once '../core/view.php';
 
 $app = new Bootstrap();
