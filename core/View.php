@@ -14,7 +14,8 @@ Class View {
 
 	public function loadSlice($slice){
 		$file = '../views/slices/' . $slice . '.php';
-
+		extract($this->args);
+		
 		require_once $file;
 	}
 
