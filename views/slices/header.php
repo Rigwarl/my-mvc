@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title><?php echo $title; ?></title>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-<p>it is a header</p>
+
+<header class="page-header">
+	<div class="container">
+		  <p class="h1">Rate them all!</p>
+	</div>
+</header>
