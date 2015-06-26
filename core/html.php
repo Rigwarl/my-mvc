@@ -6,7 +6,7 @@ class html {
 
 		$nav = "<ul class='$class'>";
 		foreach ($links as $name => $link) {
-			$active = ($link === $url) ? " class='active'": '';
+			$active = (strpos($url, $link) === 0) ? " class='active'": '';
 			$nav .= "<li$active><a href='/$link'>$name</a></li>";
 		}
 		$nav .= '</ul>';
