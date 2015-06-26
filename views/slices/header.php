@@ -22,13 +22,14 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		  <ul class="nav navbar-nav">
-			<li class="active"><a href="/professors">Professors</a></li>
-		  </ul>
-		  <ul class="nav navbar-nav navbar-right">
-			<li><a href="#">Login</a></li>
-			<li><a href="#">Register</a></li>
-		  </ul>
+			<?php html::nav(array(
+				'Professors' => '/professors'
+			), 'nav navbar-nav'); ?>
+
+			<?php html::nav(array(
+				'Login' => '#',
+				'Register' => '#'
+			), 'nav navbar-nav navbar-right'); ?>
 		</div><!-- /.navbar-collapse -->
 	</nav>
 </header>
