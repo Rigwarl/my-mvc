@@ -10,8 +10,15 @@ Class Model {
 	}
 
 	public function getAll(){
-		$all = $this->db->query("SELECT * FROM {$this->table}");
+		$sth = $this->db->query("SELECT * FROM {$this->table}");
 
-		return $all->fetchAll();
+		return $sth->fetchAll();
+	}
+
+	public function getID($id){
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE id=:id");
+		$sth->execute(array('id' => $id));
+
+		return $sth->fetch();
 	}
 }
