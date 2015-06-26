@@ -3,9 +3,16 @@
 Class Professors extends Controller{
 
 	public function index(){
-		$args = array('professors' => $this->model->getAll());
+		$data = array('professors' => $this->model->getAll());
 
-		$this->view->render('professors/index', $args);
+		$this->view->render('professors/index', $data);
+	}
+
+	public function show($id){
+		$data = $this->model->getID($id);
+		if (!$data)	throw new Exception('404');
+
+		$this->view->render('professors/show', $data);
 	}
 
 }
