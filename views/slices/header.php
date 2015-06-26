@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title><?php echo $title; ?></title>
 
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<?php html::nav(array(
-				'Professors' => '/professors'
+				'Professors' => 'professors'
 			), 'nav navbar-nav'); ?>
 
 			<?php html::nav(array(

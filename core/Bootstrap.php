@@ -5,8 +5,7 @@ Class Bootstrap {
 	private $controller;
 	private $model;
 
-	function __construct() {
-		$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'home';
+	function __construct($url) {
 		$url = explode('/', $url);
 
 		$controller = $url[0];
