@@ -5,7 +5,7 @@
 	<ul>
 		<?php foreach ($professors as $professor): ?>
 			
-			<li><a href="/professors/show/<?php echo $professor['id']; ?>"><?php echo $professor['name']; ?></a></li>
+			<li><a href="/professors/show/<?php echo $professor['id']; ?>"><?php echo $professor['name'] . " " . $professor['patronymic'] . " " . $professor['surname'] ; ?></a></li>
 
 		<?php endforeach; ?>
 	</ul>

@@ -9,7 +9,7 @@ Class Professors extends Controller{
 	}
 
 	public function show($id){
-		$data = $this->model->getID($id);
+		$data = array('professor' => $this->model->getID($id));
 		if (!$data)	throw new Exception('404');
 
 		$this->view->render('professors/show', $data);
