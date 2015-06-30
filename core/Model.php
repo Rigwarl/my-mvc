@@ -21,9 +21,16 @@ Class Model {
 		return $sth->fetch();
 	}
 
+	public function get($data){
+		$set = $this->sqlSet($data);
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set");
+		$sth->execute($data);
+
+		return $sth->fetchAll();
+	}
+
 	public function save($data){
 		$set = $this->sqlSet($data);
-
 		$sth = $this->db->prepare("INSERT INTO {$this->table} SET $set");
 		$sth->execute($data);
 	}
