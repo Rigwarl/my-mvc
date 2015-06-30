@@ -5,8 +5,7 @@ Class Model {
 	public $table;
 
 	function __construct(){
-
-		$this->db = new PDO('mysql:host=127.0.0.1;dbname=mymvc', 'root', '123456');
+		$this->db = new PDO('mysql:host=127.0.0.1;dbname=mymvc', 'root', '');
 	}
 
 	public function getAll(){
@@ -20,5 +19,15 @@ Class Model {
 		$sth->execute(array('id' => $id));
 
 		return $sth->fetch();
+	}
+
+	public function save($data = array()){
+		foreach ($data as $key => $param){
+			$set .= $key . '=:' . $key . ', ';
+		}
+		$set = substr($set, 0, -2);
+
+		$sth = $this->db->prepare("INSERT INTO {$this->table} SET $set");
+		$sth->execute($data);
 	}
 }
