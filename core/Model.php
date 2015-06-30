@@ -21,13 +21,18 @@ Class Model {
 		return $sth->fetch();
 	}
 
-	public function save($data = array()){
-		foreach ($data as $key => $param){
-			$set .= $key . '=:' . $key . ', ';
-		}
-		$set = substr($set, 0, -2);
+	public function save($data){
+		$set = $this->sqlSet($data);
 
 		$sth = $this->db->prepare("INSERT INTO {$this->table} SET $set");
 		$sth->execute($data);
+	}
+
+	private function sqlSet($data){
+		foreach ($data as $key => $param){
+			$set .= $key . '=:' . $key . ', ';
+		}
+
+		return substr($set, 0, -2);
 	}
 }
