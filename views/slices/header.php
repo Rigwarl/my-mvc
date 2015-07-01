@@ -25,7 +25,7 @@
 			), 'nav navbar-nav'); ?>
 
 			<?php html::nav(array(
-				'Login' => '#',
+				'Login' => 'login',
 				'Register' => '#'
 			), 'nav navbar-nav navbar-right'); ?>
 		</div>

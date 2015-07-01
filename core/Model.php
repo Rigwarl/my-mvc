@@ -4,7 +4,7 @@ Class Model {
 	protected $db;
 	public $table;
 
-	// вынести работу с базой? срабатывает дважды
+	// todo seems to launch twice
 	function __construct(){
 		$this->db = new PDO(
 			DB_DRIVE . ':host=' . 

@@ -6,4 +6,8 @@ Class Users_Model extends Model{
 		parent::__construct();
 		session_start();
 	}
+
+	public function login($user){
+		// todo
+	}
 }
