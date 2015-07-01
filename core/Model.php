@@ -4,8 +4,16 @@ Class Model {
 	protected $db;
 	public $table;
 
+	// вынести работу с базой?
 	function __construct(){
-		$this->db = new PDO('mysql:host=127.0.0.1;dbname=mymvc', 'root', '');
+		echo 'k';
+		$this->db = new PDO(
+			DB_DRIVE . ':host=' . 
+			DB_HOST . ';dbname=' .
+			DB_NAME, 
+			DB_USER,  
+			DB_PASSWORD
+		);
 	}
 
 	public function getAll(){
