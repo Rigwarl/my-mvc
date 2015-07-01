@@ -4,9 +4,8 @@ Class Model {
 	protected $db;
 	public $table;
 
-	// вынести работу с базой?
+	// вынести работу с базой? срабатывает дважды
 	function __construct(){
-		echo 'k';
 		$this->db = new PDO(
 			DB_DRIVE . ':host=' . 
 			DB_HOST . ';dbname=' .
