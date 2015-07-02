@@ -24,10 +24,19 @@
 				'Professors' => 'professors'
 			), 'nav navbar-nav'); ?>
 
-			<?php html::nav(array(
-				'Login' => 'login',
-				'Register' => '#'
-			), 'nav navbar-nav navbar-right'); ?>
+			<?php
+			if ($_SESSION['logged']) {
+				html::nav(array(
+					$_SESSION['login'] => '#',
+					'Logout' => '#'
+				), 'nav navbar-nav navbar-right');
+			} else {
+				html::nav(array(
+					'Login' => 'login',
+					'Register' => '#'
+				), 'nav navbar-nav navbar-right');
+			} 
+			?>
 		</div>
 	</nav>
 </header>
