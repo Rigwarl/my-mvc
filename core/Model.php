@@ -29,8 +29,8 @@ Class Model {
 		return $sth->fetch();
 	}
 
-	public function get($data){
-		$set = $this->sqlSet($data);
+	public function get($data, $separator = 'AND'){
+		$set = $this->sqlSet($data, $separator);
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set");
 		$sth->execute($data);
 
@@ -43,11 +43,11 @@ Class Model {
 		$sth->execute($data);
 	}
 
-	private function sqlSet($data){
+	private function sqlSet($data, $separator = ', '){
 		foreach ($data as $key => $param){
-			$set .= $key . '=:' . $key . ', ';
+			$set .= $key . '=:' . $key . ' ' . $separator . ' ';
 		}
 
-		return substr($set, 0, -2);
+		return substr($set, 0, -4);
 	}
 }
