@@ -1,18 +1,21 @@
 <?php
 
 Class Model {
+	private static $singleDb;
 	protected $db;
 	public $table;
 
-	// todo seems to launch twice
 	function __construct(){
-		$this->db = new PDO(
-			DB_DRIVE . ':host=' . 
-			DB_HOST . ';dbname=' .
-			DB_NAME, 
-			DB_USER,  
-			DB_PASSWORD
-		);
+		if (!self::$singleDb) {
+			self::$singleDb = new PDO(
+				DB_DRIVE . ':host=' . 
+				DB_HOST . ';dbname=' .
+				DB_NAME, 
+				DB_USER,  
+				DB_PASSWORD
+			);
+		}
+		$this->db = self::$singleDb;
 	}
 
 	public function getAll(){
