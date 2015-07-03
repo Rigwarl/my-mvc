@@ -17,8 +17,8 @@ Class login extends Controller{
 		if ($_SESSION['logged']){
 			header('Location: /');
 		} else {
-			// todo error message
-			$this->view->render('login/index');
+			$data = array('invalid' => true);
+			$this->view->render('login/index', $data);
 		}
 	}
 

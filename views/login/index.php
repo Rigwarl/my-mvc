@@ -1,6 +1,11 @@
 <div class="container">
     <h1>Log in</h1>
-    <form method="post" action="/login">
+
+    <?php if ($invalid): ?>
+      <p class="alert alert-danger">Login or password is incorrect</p>
+    <?php endif; ?>
+
+    <form method="post" action="/login" <?php echo $invalid ? 'class="has-error"' : ''?>>
       <div class="form-group">
         <label for="login">Email address</label>
         <input type="text" name="login" class="form-control" id="login" placeholder="login">
