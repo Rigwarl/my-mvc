@@ -28,7 +28,7 @@
 			if ($_SESSION['logged']) {
 				html::nav(array(
 					$_SESSION['login'] => '#',
-					'Logout' => '#'
+					'Logout' => 'login/logout'
 				), 'nav navbar-nav navbar-right');
 			} else {
 				html::nav(array(

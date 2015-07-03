@@ -21,4 +21,10 @@ Class login extends Controller{
 			$this->view->render('login/index');
 		}
 	}
+
+	public function logout(){
+		$this->users->logout();
+
+		header('Location: /login');
+	}
 }

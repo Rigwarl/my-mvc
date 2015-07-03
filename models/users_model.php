@@ -9,7 +9,6 @@ Class Users_Model extends Model{
 	}
 
 	public function login($data){
-		// todo
 		$user = $this->get(array(
 			'login' => $data['login'],
 			'password' => $data['password']
@@ -19,5 +18,10 @@ Class Users_Model extends Model{
 			$_SESSION['logged'] = true;
 			$_SESSION['login'] = $user['login'];
 		}
+	}
+
+	public function logout(){
+		// todo mb some session unsets
+		session_destroy();
 	}
 }
