@@ -3,7 +3,10 @@
 Class login extends Controller{
 
 	public function index(){
-		// check if already logged
+		if ($_SESSION['logged']){
+			header('Location: /');
+		}
+
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$this->auth();
 		} else {
