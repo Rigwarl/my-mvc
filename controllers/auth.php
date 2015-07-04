@@ -1,6 +1,6 @@
 <?php 
 
-Class Login extends Controller{
+Class Auth extends Controller{
 
 	public function index(){
 		if ($_SESSION['logged']){
