@@ -2,32 +2,29 @@
 
 Class Auth extends Controller{
 
-	public function index(){
+	public function login(){
 		if ($_SESSION['logged']){
 			header('Location: /');
 		}
+
+		$data = array();
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$this->auth();
-		} else {
-			$this->view->render('auth/login');
-		}
-	}
+			$this->users->login($_POST);
 
-	private function auth(){
-		$this->users->login($_POST);
+			if ($_SESSION['logged']){
+				header('Location: /');
+			}
 
-		if ($_SESSION['logged']){
-			header('Location: /');
-		} else {
-			$data = array('invalid' => true);
-			$this->view->render('auth/login', $data);
+			$data['invalid'] = true;
 		}
+
+		$this->view->render('auth/login', $data);
 	}
 
 	public function logout(){
 		$this->users->logout();
 
-		header('Location: /login');
+		header('Location: /auth/login');
 	}
 }

@@ -28,12 +28,12 @@
 			if ($_SESSION['logged']) {
 				html::nav(array(
 					$_SESSION['login'] => '#',
-					'Logout' => 'login/logout'
+					'Logout' => 'auth/logout'
 				), 'nav navbar-nav navbar-right');
 			} else {
 				html::nav(array(
-					'Login' => 'login',
-					'Register' => '#'
+					'Login' => 'auth/login',
+					'Register' => 'auth/register'
 				), 'nav navbar-nav navbar-right');
 			} 
 			?>
