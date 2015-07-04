@@ -1,6 +1,6 @@
 <?php 
 
-Class login extends Controller{
+Class Login extends Controller{
 
 	public function index(){
 		if ($_SESSION['logged']){
@@ -10,7 +10,7 @@ Class login extends Controller{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$this->auth();
 		} else {
-			$this->view->render('login/index');
+			$this->view->render('auth/login');
 		}
 	}
 
@@ -21,7 +21,7 @@ Class login extends Controller{
 			header('Location: /');
 		} else {
 			$data = array('invalid' => true);
-			$this->view->render('login/index', $data);
+			$this->view->render('auth/login', $data);
 		}
 	}
 
