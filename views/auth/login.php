@@ -7,7 +7,7 @@
 
     <form method="post" action="/login" <?php echo $invalid ? 'class="has-error"' : ''?>>
       <div class="form-group">
-        <label for="login">Email address</label>
+        <label for="login">Login</label>
         <input type="text" name="login" class="form-control" id="login" placeholder="login">
       </div>
       <div class="form-group">
