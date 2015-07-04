@@ -24,4 +24,15 @@ Class Users_Model extends Model{
 		// todo mb some session unsets
 		session_destroy();
 	}
+
+	public function register($data){
+		//todo validation
+		$user = array(
+			'login' => $data['login'],
+			'password' => $data['password'],
+			'email' => $data['email'],
+		);
+
+		$this->save($user);
+	}
 }

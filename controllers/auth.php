@@ -27,4 +27,17 @@ Class Auth extends Controller{
 
 		header('Location: /auth/login');
 	}
+
+	public function register(){
+		//todo validation
+		if ($_SESSION['logged']){
+			header('Location: /');
+		}
+
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$this->users->register($_POST);
+		} else {
+			$this->view->render('auth/registration');
+		}
+	}
 }
