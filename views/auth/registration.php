@@ -1,19 +1,35 @@
 <div class="container">
-    <h1>Log in</h1>
+    <h1>Registration</h1>
 
-    <form method="post" action="/auth/register">
+    <?php if ($invalid): ?>
+      <p class="alert alert-danger">Sorry, something went wrong...</p>
+    <?php endif; ?>
+
+    <form method="post" action="/auth/register" <?php echo $invalid ? 'class="has-error"' : ''?>>
       <div class="form-group">
-        <label for="login">Login</label>
+        <label for="login">
+          <?php echo $login ? "<span class='text-danger '>$login</span>" : 'Login'; ?>
+        </label>
         <input type="text" name="login" class="form-control" id="login" placeholder="Login">
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+        <label for="email">
+          <?php echo $email ? "<span class='text-danger '>$email</span>" : 'Email'; ?>
+        </label>
+        <input type="text" name="email" class="form-control" id="email" placeholder="Email">
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">
+          <?php echo $password ? "<span class='text-danger '>$password</span>" : 'Password'; ?>
+        </label>
         <input type="password" name="password" class="form-control" id="password" placeholder="Password">
       </div>
-      <button type="submit" class="btn btn-primary">Log in</button>
+      <div class="form-group">
+        <label for="password2">
+          <?php echo $password2 ? "<span class='text-danger '>$password2</span>" : 'Password again'; ?>
+        </label>
+        <input type="password" name="password" class="form-control" id="password2" placeholder="Password again">
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
     </form>
 </div>
