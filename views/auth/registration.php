@@ -28,7 +28,7 @@
         <label for="password2">
           <?php echo $password2 ? "<span class='text-danger '>$password2</span>" : 'Password again'; ?>
         </label>
-        <input type="password" name="password" class="form-control" id="password2" placeholder="Password again">
+        <input type="password" name="password2" class="form-control" id="password2" placeholder="Password again">
       </div>
       <button type="submit" class="btn btn-primary">Register</button>
     </form>
