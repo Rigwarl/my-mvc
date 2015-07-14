@@ -3,7 +3,7 @@
 Class Bootstrap {
 
 	//todo router
-	
+
 	private $controller;
 	private $users;
 	private $is_admin = false;
@@ -33,6 +33,9 @@ Class Bootstrap {
 
 	private function loadController($controller){
 		if ($this->is_admin) {
+			if ($_SESSION['group'] !== 'admin') {
+				throw new Exception('403');
+			}
 			$controller_file = '../controllers/admin/' . $controller . '.php';
 		} else {
 			$controller_file = '../controllers/' . $controller . '.php';
