@@ -2,36 +2,49 @@
 
 Class Bootstrap {
 
+	//todo router
+	
 	private $controller;
-	private $model;
+	private $users;
+	private $is_admin = false;
 
 	function __construct($url) {
 		$url = explode('/', $url);
 
-		$controller = $url[0];
-		$action = isset($url[1]) ? $url[1] : 'index';
-		$arg = isset($url[2]) ? $url[2] : null;
+		if ($url[0] === 'admin'){
+			array_shift($url);
+			$this->is_admin = true;
+		}
 
-		$this->loadController($controller);
+		$controller = isset($url[0]) ? $url[0] : 'home';
+		$action = isset($url[1]) ? $url[1] : 'index';
+		$arg = isset($url[2]) ? $url[2] : null;	
+
 		$this->loadUser();
+		$this->loadController($controller);
 		$this->loadModel($controller);
 		$this->loadMethod($action, $arg);
 	}
 
+	private function loadUser(){
+		require_once '../models/users_model.php';
+		$this->users = new Users_Model();
+	}
+
 	private function loadController($controller){
-		$controller_file = '../controllers/' . $controller . '.php';
+		if ($this->is_admin) {
+			$controller_file = '../controllers/admin/' . $controller . '.php';
+		} else {
+			$controller_file = '../controllers/' . $controller . '.php';
+		}
 
 		if (file_exists($controller_file)) {
 			require_once $controller_file;
 			$this->controller = new $controller();
+			$this->controller->users = $this->users;
 		} else {
 			throw new Exception("404");
 		}
-	}
-
-	private function loadUser(){
-		require_once '../models/users_model.php';
-		$this->controller->users = new Users_Model();
 	}
 
 	private function loadModel($model){
@@ -40,9 +53,7 @@ Class Bootstrap {
 
 		if (file_exists($model_file)) {
 			require_once $model_file;
-			$this->model = new $model_name();
-			$this->model->table = $model;
-			$this->controller->model = $this->model;
+			$this->controller->model = new $model_name();
 		} 
 	}
 
@@ -53,5 +64,4 @@ Class Bootstrap {
 			throw new Exception("404");
 		}
 	}
-
 }

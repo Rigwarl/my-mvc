@@ -2,6 +2,7 @@
 
 Class View {
 
+	//todo restructure folders in views
 	public $layout = 'default';
 	private $args = array();
 
