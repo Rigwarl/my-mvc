@@ -28,6 +28,7 @@ Class Users_Model extends Model{
 			if ($user) {
 				$_SESSION['logged'] = true;
 				$_SESSION['login'] = $user['login'];
+				$_SESSION['group'] = $user['group'];
 			} else {
 				$result['incorrect'] = 'Login or password is incorrect';
 			}
@@ -37,7 +38,7 @@ Class Users_Model extends Model{
 	}
 
 	public function logout(){
-		// todo mb some session unsets
+		// todo mb some unsets?
 		session_destroy();
 	}
 
@@ -75,7 +76,7 @@ Class Users_Model extends Model{
 				'password' => $data['password'],
 				'email' => $data['email'],
 			);
-			// todo mb some check
+			// todo some check for unallowable symbols
 			$this->save($user);
 		}
 
