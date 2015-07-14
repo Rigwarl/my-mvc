@@ -2,8 +2,6 @@
 
 Class View {
 
-	//todo change layout in admin
-
 	public $layout = 'default';
 	private $args = array();
 
