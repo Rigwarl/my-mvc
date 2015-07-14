@@ -1,8 +1,8 @@
 <?php
 
-Class Home extends Controller{
+Class Home extends Admin{
 
 	public function index(){
-		echo 'admin panel coming soon';
+		$this->view->render('admin/home/index');
 	}
 }

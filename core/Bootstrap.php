@@ -33,9 +33,7 @@ Class Bootstrap {
 
 	private function loadController($controller){
 		if ($this->is_admin) {
-			if ($_SESSION['group'] !== 'admin') {
-				throw new Exception('403');
-			}
+			require_once '../core/Admin.php';
 			$controller_file = '../controllers/admin/' . $controller . '.php';
 		} else {
 			$controller_file = '../controllers/' . $controller . '.php';
