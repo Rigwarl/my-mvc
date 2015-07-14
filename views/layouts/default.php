@@ -2,6 +2,6 @@
 
 $this->loadSlice('header');
 
-$this->loadView($view);
+$this->loadPage($view);
 
 $this->loadSlice('footer');

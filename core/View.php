@@ -2,7 +2,8 @@
 
 Class View {
 
-	//todo restructure folders in views
+	//todo change layout in admin
+
 	public $layout = 'default';
 	private $args = array();
 
@@ -13,15 +14,15 @@ Class View {
 		require_once $layout;
 	}
 
-	public function loadSlice($slice){
+	private function loadSlice($slice){
 		$file = '../views/slices/' . $slice . '.php';
 		extract($this->args);
 		
 		require_once $file;
 	}
 
-	public function loadView($view){
-		$file = '../views/' . $view . '.php';
+	private function loadPage($view){
+		$file = '../views/pages/' . $view . '.php';
 		extract($this->args);
 
 		require_once $file;
