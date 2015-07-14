@@ -3,8 +3,11 @@
 Class Home extends Controller {
 
 	public function index(){
-		$args = $this->model->getContent();
+		$data = array(
+			'title' => 'Home/index',
+			'body' => 'hello world'
+		);
 
-		$this->view->render('home/index', $args);
+		$this->view->render('home/index', $data);
 	}
 }
