@@ -31,6 +31,13 @@ Class Model {
 		return $sth->fetch();
 	}
 
+	public function getOne($name, $value){
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name");
+		$sth->execute(array($name => $value));
+
+		return $sth->fetch();
+	}
+
 	public function get($data, $separator = 'AND'){
 		$set = $this->sqlSet($data, $separator);
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set");
