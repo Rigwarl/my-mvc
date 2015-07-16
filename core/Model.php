@@ -54,6 +54,7 @@ Class Model {
 	}
 
 	private function sqlSet($data, $separator = ', '){
+		$set = '';
 		foreach ($data as $key => $param){
 			$set .= $key . '=:' . $key . ' ' . $separator . ' ';
 		}
