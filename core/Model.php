@@ -47,10 +47,9 @@ Class Model {
 	}
 
 	public function save($data){
-		//todo return state
 		$set = $this->sqlSet($data);
 		$sth = $this->db->prepare("INSERT INTO {$this->table} SET $set");
-		$sth->execute($data);
+		return $sth->execute($data);
 	}
 
 	private function sqlSet($data, $separator = ', '){
