@@ -11,7 +11,7 @@ Class Bootstrap {
 	function __construct($url) {
 		$url = explode('/', $url);
 
-		$this->is_admin($url);
+		$this->admin_check($url);
 
 		$controller = isset($url[0]) ? $url[0] : 'home';
 		$action = isset($url[1]) ? $url[1] : 'index';
@@ -23,7 +23,7 @@ Class Bootstrap {
 		$this->loadMethod($action, $arg);
 	}
 
-	private function is_admin(&$url){
+	private function admin_check(&$url){
 		if ($url[0] === 'admin'){
 			if (isset($url[1]) && $url[1] === 'migrate'){
 				require_once 'Migration.php';
