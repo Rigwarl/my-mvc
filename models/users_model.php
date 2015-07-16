@@ -28,12 +28,13 @@ Class Users_Model extends Model{
 		}
 
 		if (!$result) {
-			$user = $this->get(array(
+			$users = $this->get(array(
 				'login' => $data['login'],
 				'password' => $data['password']
-			))[0];
+			));
 
-			if ($user) {
+			if ($users) {
+				$user = $users[0];
 				$_SESSION['logged'] = true;
 				$_SESSION['login'] = $user['login'];
 				$_SESSION['class'] = $user['class'];
@@ -85,7 +86,11 @@ Class Users_Model extends Model{
 				'email' => $data['email'],
 			);
 			// todo some check for unallowable symbols
-			$this->save($user);
+			$saved = $this->save($user);
+
+			if (!$saved) {
+				$result['error'] = 'Sorry, something went wrong. Plese try later...';
+			}
 		}
 
 		return $result;
