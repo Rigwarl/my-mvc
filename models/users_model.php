@@ -89,7 +89,7 @@ Class Users_Model extends Model{
 			$saved = $this->save($user);
 
 			if (!$saved) {
-				$result['error'] = 'Sorry, something went wrong. Plese try later...';
+				$result['error'] = 'Sorry, something went wrong. Please try later...';
 			}
 		}
 
