@@ -4,3 +4,5 @@
 3. Update **/config/db.php** with your db settings
 4. Visit with your browser url **{your sitename}/admin/migrate**
 5. Enjoy!
+
+default user is **admin** with **admin** password
