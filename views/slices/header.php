@@ -25,9 +25,9 @@
 			), 'nav navbar-nav'); ?>
 
 			<?php
-			if ($_SESSION['logged']) {
+			if ($this->user['logged']) {
 				html::nav(array(
-					$_SESSION['login'] => '#',
+					$this->user['login'] => '#',
 					'Logout' => 'auth/logout'
 				), 'nav navbar-nav navbar-right');
 			} else {

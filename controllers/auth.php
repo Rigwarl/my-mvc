@@ -9,7 +9,7 @@ Class Auth extends Controller{
 	}
 
 	public function login(){
-		if ($_SESSION['logged']){
+		if ($this->user['logged']){
 			header('Location: /');
 		}
 
@@ -28,7 +28,7 @@ Class Auth extends Controller{
 
 	public function register(){
 		//todo capcha
-		if ($_SESSION['logged']){
+		if ($this->user['logged']){
 			header('Location: /');
 		}
 
