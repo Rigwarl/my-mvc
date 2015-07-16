@@ -42,6 +42,8 @@ Class Auth extends Controller{
 				header('Location: /auth/login');
 			}
 		}
+
+		$data['title'] = 'Registration';
 		$this->view->render('auth/registration', $data);
 	}
 }
