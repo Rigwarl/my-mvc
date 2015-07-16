@@ -2,6 +2,7 @@
 
 Class View {
 
+	public $user;
 	public $layout = 'default';
 	private $args = array();
 

@@ -3,11 +3,15 @@
 Class Controller {
 
 	public $model;
-	public $users;
-	public $view;
+	protected $users;
+	protected $user;
+	protected $view;
 
-	function __construct() {
+	function __construct($users) {
+		$this->users = $users;
+		$this->user = $users->user;
 		$this->view = new View;
+		$this->view->user = $this->user;
 	}
 
 	protected function loadModel($model){

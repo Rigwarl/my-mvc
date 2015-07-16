@@ -41,8 +41,7 @@ Class Bootstrap {
 
 		if (file_exists($controller_file)) {
 			require_once $controller_file;
-			$this->controller = new $controller();
-			$this->controller->users = $this->users;
+			$this->controller = new $controller($this->users);
 		} else {
 			throw new Exception("404");
 		}
