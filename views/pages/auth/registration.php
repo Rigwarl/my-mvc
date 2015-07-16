@@ -1,9 +1,7 @@
 <div class="container">
     <h1>Registration</h1>
 
-    <?php if (isset($invalid)): ?>
-      <p class="alert alert-danger">Sorry, something went wrong...</p>
-    <?php endif; ?>
+    <?php echo isset($error) ? "<p class='alert alert-danger'>$error</p>" : ''; ?>
 
     <form method="post" action="/auth/register" <?php echo isset($invalid) ? 'class="has-error"' : ''?>>
       <div class="form-group<?php echo isset($login) ? ' has-error' : ''; ?>">
