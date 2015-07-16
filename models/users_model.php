@@ -2,10 +2,18 @@
 
 Class Users_Model extends Model{
 
+	public $user;
+
 	function __construct(){
 		parent::__construct();
 		$this->table = 'users';
+
 		session_start();
+		$this->user = array(
+			'logged' => isset($_SESSION['logged']),
+			'login' => isset($_SESSION['login']) ? $_SESSION['login'] : null,
+			'class' => isset($_SESSION['class']) ? $_SESSION['class'] : null
+		);
 	}
 
 	public function login($data){
