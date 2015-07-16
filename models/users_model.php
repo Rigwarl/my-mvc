@@ -28,7 +28,7 @@ Class Users_Model extends Model{
 			if ($user) {
 				$_SESSION['logged'] = true;
 				$_SESSION['login'] = $user['login'];
-				$_SESSION['group'] = $user['group'];
+				$_SESSION['class'] = $user['class'];
 			} else {
 				$result['incorrect'] = 'Login or password is incorrect';
 			}

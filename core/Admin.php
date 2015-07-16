@@ -5,7 +5,7 @@ Class Admin extends Controller{
 	function __construct() {
 		parent::__construct();
 
-		if ($_SESSION['group'] !== 'admin') {
+		if ($_SESSION['class'] !== 'admin') {
 			throw new Exception('403');
 		}
 
