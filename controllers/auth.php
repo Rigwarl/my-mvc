@@ -23,6 +23,7 @@ Class Auth extends Controller{
 			}
 		}
 
+		$data['title'] = 'Log in';
 		$this->view->render('auth/login', $data);
 	}
 
