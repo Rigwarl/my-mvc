@@ -12,6 +12,10 @@ Class Bootstrap {
 		$url = explode('/', $url);
 
 		if ($url[0] === 'admin'){
+			if ($url[1] === 'migrate'){
+				require_once 'Migration.php';
+				new Migration();
+			}
 			array_shift($url);
 			$this->is_admin = true;
 		}
