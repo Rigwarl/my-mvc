@@ -21,7 +21,7 @@ Class Migration extends Model{
 		if ($migration){
 			require_once $migration;
 		}
-		die();
+		die('migration done');
 	}
 
 	private function migrated($version){
@@ -36,7 +36,6 @@ Class Migration extends Model{
 		} else {
 			$this->error($version);
 		}
-
 
 		$this->migrate($version);
 	}

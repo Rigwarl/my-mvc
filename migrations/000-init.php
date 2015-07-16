@@ -2,11 +2,15 @@
 
 $version = 000;
 
-$options_sql = 'CREATE TABLE `options` (
-					`name`  varchar(50) PRIMARY KEY,
-					`value` varchar(50)
+$professors_sql = 'CREATE TABLE `professors` (
+					`id` int PRIMARY KEY AUTO_INCREMENT,
+					`name` varchar(30) NOT NULL,
+					`patronymic` varchar(30) NOT NULL,
+					`surname` varchar(30) NOT NULL,
+					`birth` date  NOT NULL,
+					`about` text
 				)';
-$options = $this->db->query($options_sql);
+$professors = $this->db->query($professors_sql);
 
 $users_sql = 'CREATE TABLE `users` (
 				`id` int PRIMARY KEY AUTO_INCREMENT,
@@ -18,16 +22,16 @@ $users_sql = 'CREATE TABLE `users` (
 			)';
 $users = $this->db->query($users_sql);
 
-
-$professors_sql = 'CREATE TABLE `professors` (
-					`id` int PRIMARY KEY AUTO_INCREMENT,
-					`name` varchar(30) NOT NULL,
-					`patronymic` varchar(30) NOT NULL,
-					`surname` varchar(30) NOT NULL,
-					`birth` date  NOT NULL,
-					`about` text
+$options_sql = 'CREATE TABLE `options` (
+					`name`  varchar(50) PRIMARY KEY,
+					`value` varchar(50)
 				)';
-$professors = $this->db->query($professors_sql);
+$options = $this->db->query($options_sql);
+
+$db_version = $this->save(array(
+				'name' => 'db',
+				'value' => 0	
+			));
 
 $this->table = 'users';
 $admin = $this->save(array(
@@ -38,7 +42,7 @@ $admin = $this->save(array(
 		));
 $this->table = 'options';
 
-if ($options && $users && $professors && $admin) {
+if ($professors && $users && $options && $db_version && $admin) {
 	$this->migrated($version);
 } else {
 	$this->error($version);
