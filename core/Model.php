@@ -19,8 +19,9 @@ Class Model {
 	}
 
 	public function getAll(){
-		$sth = $this->db->query("SELECT * FROM {$this->table}");
-
+		$sth = $this->db->prepare("SELECT * FROM {$this->table}");
+		$sth->execute();
+		
 		return $sth->fetchAll();
 	}
 
