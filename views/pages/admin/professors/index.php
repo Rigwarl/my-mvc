@@ -1,5 +1,8 @@
 <div class="container">
-	<h1>Professors</h1>
+	<div class="clear">
+		<h1 class="pull-left">Professors</h1>
+		<a href="/admin/professors/edit/new" class="btn btn-success pull-right">Add new professor</a>
+	</div>
 	<ul>
 		<?php foreach ($professors as $professor): ?>
 			
