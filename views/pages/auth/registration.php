@@ -3,7 +3,7 @@
 
     <?php echo isset($error) ? "<p class='alert alert-danger'>$error</p>" : ''; ?>
 
-    <form method="post" action="/admin/professors/add">
+    <form method="post" action="/auth/register">
       <div class="form-group<?php echo isset($login) ? ' has-error' : ''; ?>">
         <label class="control-label" for="login">
           <?php echo isset($login) ? $login : 'Login'; ?>
