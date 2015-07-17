@@ -17,6 +17,11 @@ Class Users_Model extends Model{
 	}
 
 	public function login($data){
+		$data = array_merge(array(
+			'login' => '',
+			'password' => ''
+		), $data);
+
 		$result = array();
 
 		if ($data['login'] == '') {
@@ -52,6 +57,13 @@ Class Users_Model extends Model{
 	}
 
 	public function register($data){
+		$data = array_merge(array(
+			'login' => '',
+			'password' => '',
+			'password2' => '',
+			'email' => ''
+		), $data);
+
 		$result = array();
 
 		if ($data['login'] == '') {
