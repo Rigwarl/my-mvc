@@ -1,1 +1,3 @@
-<h1>admin panel coming soon</h1>
+<div class="container">
+	<h1>Admin panel</h1>
+</div>
