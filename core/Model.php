@@ -30,7 +30,7 @@ Class Model {
 		return $this;
 	}
 
-	public function validate($name){
+	public function validate($name = ''){
 		$name = "" ?: "_$name";
 		$this->errors = validate($this->{'data' . $name}, $this->{'rules' . $name});
 
