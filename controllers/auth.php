@@ -24,7 +24,7 @@ Class Auth extends Controller{
 			$this->users->validate('login');
 
 			if ($this->users->is_valid) {
-				$user = $this->users->login($data);
+				$user = $this->users->login();
 
 				if ($user){
 					header('Location: /');
