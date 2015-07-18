@@ -22,24 +22,26 @@ Class Professors extends Admin{
 			$data['id'] = 'new';
 		}
 
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$this->save($data);
+		}
+
 		$this->view->render('admin/professors/edit', $data);
 	}
 
-	public function save($id){
-		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-			throw new exception('404');
-		}
-
-		if ($id === 'new') {
+	private function save($data){
+		if ($data['id'] === 'new') {
 			$data = $this->model->add($_POST);
+			$data['id'] = 'new';
 		} else {
-			$data = $this->model->edit($_POST);
+			$data = $this->model->change($_POST);
 		}
 
 		if (!$data) {
-			$data['success'] = 'Saved';
-			$this->view->render('admin/professors/edit' . $id);
+			//todo get the id of saved elem
+		} else {
 		}
 
+		$this->view->render('admin/professors/edit', $data);
 	}
 }

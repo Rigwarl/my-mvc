@@ -3,30 +3,36 @@
 
 	<?php echo isset($error) ? "<p class='alert alert-danger'>$error</p>" : ''; ?>
 
-  <form method="post" action="/admin/professors/save/<?php isset($id) ? $id : ''; ?>">
-    <div class="form-group<?php echo isset($login) ? ' has-error' : ''; ?>">
-      <label class="control-label" for="login">
-        <?php echo isset($login) ? $login : 'Login'; ?>
+  <form method="post" action="/admin/professors/edit/<?php echo $id; ?>">
+    <div class="form-group<?php echo isset($name) ? ' has-error' : ''; ?>">
+      <label class="control-label" for="name">
+        <?php echo isset($name) ? $name : 'Name'; ?>
       </label>
-      <input type="text" name="login" class="form-control" id="login" placeholder="Login">
+      <input type="text" name="name" class="form-control" id="name" placeholder="Name">
     </div>
-    <div class="form-group<?php echo isset($email) ? ' has-error' : ''; ?>">
-      <label class="control-label" for="email">
-        <?php echo isset($email) ? $email : 'Email'; ?>
+    <div class="form-group<?php echo isset($patronymic) ? ' has-error' : ''; ?>">
+      <label class="control-label" for="patronymic">
+        <?php echo isset($patronymic) ? $patronymic : 'Patronymic'; ?>
       </label>
-      <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+      <input type="text" name="patronymic" class="form-control" id="patronymic" placeholder="Patronymic">
     </div>
-    <div class="form-group<?php echo isset($password) ? ' has-error' : ''; ?>">
-      <label class="control-label" for="password">
-        <?php echo isset($password) ? $password : 'Password'; ?>
+    <div class="form-group<?php echo isset($surname) ? ' has-error' : ''; ?>">
+      <label class="control-label" for="surname">
+        <?php echo isset($surname) ? $surname : 'Surname'; ?>
       </label>
-      <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+      <input type="surname" name="surname" class="form-control" id="surname" placeholder="Surname">
     </div>
-    <div class="form-group<?php echo isset($password2) ? ' has-error' : ''; ?>">
-      <label class="control-label" for="password2">
-        <?php echo isset($password2) ? $password2 : 'Password again'; ?>
+    <div class="form-group<?php echo isset($birth) ? ' has-error' : ''; ?>">
+      <label class="control-label" for="birth">
+        <?php echo isset($birth) ? $birth : 'Birth date'; ?>
       </label>
-      <input type="password" name="password2" class="form-control" id="password2" placeholder="Password again">
+      <input type="text" name="birth" class="form-control" id="birth" placeholder="Birth date">
+    </div>
+    <div class="form-group<?php echo isset($about) ? ' has-error' : ''; ?>">
+      <label class="control-label" for="about">
+        <?php echo isset($about) ? $about : 'About'; ?>
+      </label>
+      <input type="text" name="about" class="form-control" id="about" placeholder="About">
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
   </form>

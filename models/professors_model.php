@@ -39,7 +39,8 @@ Class Professors_Model extends Model{
 				'name' => $data['name'],
 				'patronymic' => $data['patronymic'],
 				'surname' => $data['surname'],
-				'birth' => $data['birth']
+				'birth' => $data['birth'],
+				'about' => $data['about']
 			);
 			// todo some check for unallowable symbols
 			$saved = $this->save($professor);
@@ -50,6 +51,5 @@ Class Professors_Model extends Model{
 		}
 
 		return $result;
-
 	}
 }
