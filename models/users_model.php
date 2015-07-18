@@ -3,6 +3,10 @@
 Class Users_Model extends Model{
 
 	public $user;
+	protected $rules_login = array(
+		'login'    => 'required',
+		'password' => 'required'
+	);
 
 	function __construct(){
 		parent::__construct();
@@ -17,37 +21,25 @@ Class Users_Model extends Model{
 	}
 
 	public function login($data){
-		$result = array();
+		//todo getOne and normal return
+		$users = $this->get(array(
+			'login' => $data['login'],
+			'password' => $data['password']
+		));
 
-		if ($data['login'] == '') {
-			$result['login'] = 'Login required';
+		if ($users) {
+			$user = $users[0];
+			$_SESSION['logged'] = true;
+			$_SESSION['login'] = $user['login'];
+			$_SESSION['class'] = $user['class'];
+		} else {
+			$this->errors['incorrect'] = true;
 		}
 
-		if ($data['password'] == '') {
-			$result['password'] = 'Password required';
-		}
-
-		if (!$result) {
-			$users = $this->get(array(
-				'login' => $data['login'],
-				'password' => $data['password']
-			));
-
-			if ($users) {
-				$user = $users[0];
-				$_SESSION['logged'] = true;
-				$_SESSION['login'] = $user['login'];
-				$_SESSION['class'] = $user['class'];
-			} else {
-				$result['incorrect'] = 'Login or password is incorrect';
-			}
-		}
-
-		return $result;
+		return isset($user);
 	}
 
 	public function logout(){
-		// todo mb some unsets?
 		session_destroy();
 	}
 

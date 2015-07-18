@@ -13,17 +13,27 @@ Class Auth extends Controller{
 			header('Location: /');
 		}
 
-		$data = array();
+		$data = array(
+			'login' => '',
+			'password' => ''
+		);
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$data = $this->users->login($_POST);
+			$data = $_POST;
+			$this->users->load($data, 'login');
+			$this->users->validate('login');
 
-			if (!$data){
-				header('Location: /');
+			if ($this->users->is_valid) {
+				$user = $this->users->login($data);
+
+				if ($user){
+					header('Location: /');
+				}
 			}
 		}
 
-		$data['title'] = 'Log in';
+		$this->view->title = 'Log in';
+		$this->view->errors = $this->users->errors;
 		$this->view->render('auth/login', $data);
 	}
 
