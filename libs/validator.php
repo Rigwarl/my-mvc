@@ -23,7 +23,7 @@ function check($data, $field_name, $rule){
 	$rule = explode(':', $rule);
 	$rule_name = $rule[0];
 	$rule_val = isset($rule[1]) ? $rule[1] : false;
-	$field = isset($data[$field_name]) ? $data[$field_name] : false;
+	$field = isset($data[$field_name]) ? $data[$field_name] : '';
 	$error = false;
 	
 	switch ($rule_name) {
