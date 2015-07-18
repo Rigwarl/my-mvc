@@ -4,6 +4,10 @@ Class Model {
 	private static $singleDb;
 	protected $db;
 	public $table;
+	protected $data = array();
+	protected $rules = array();
+	public $errors = array();
+	public $is_valid = false;
 
 	function __construct(){
 		if (!self::$singleDb) {
@@ -16,6 +20,24 @@ Class Model {
 			);
 		}
 		$this->db = self::$singleDb;
+	}
+
+	public function load($data, $name = ''){
+		$name = "" ?: "_$name";
+		foreach ($this->{'rules' . $name} as $key => $item){
+			$this->{'data' . $name}[$key] = isset($data[$key]) ? $data[$key] : ''; 
+		}
+		return $this;
+	}
+
+	public function validate($name){
+		$name = "" ?: "_$name";
+		$this->errors = validate($this->{'data' . $name}, $this->{'rules' . $name});
+
+		if (!$this->errors) {
+			$this->is_valid = true;
+		}
+		return $this->is_valid;
 	}
 
 	public function getAll(){
