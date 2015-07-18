@@ -8,6 +8,7 @@ Class Home extends Controller {
 			'body' => 'hello world'
 		);
 
+		$this->view->title = 'home index';
 		$this->view->render('home/index', $data);
 	}
 }

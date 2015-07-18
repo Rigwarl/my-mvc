@@ -5,6 +5,8 @@ Class View {
 	public $user;
 	public $layout = 'default';
 	private $args = array();
+	// change title in all controllers
+	public $title = 'mymvc';
 
 	public function render($view, $args = array()) {
 		$layout = '../views/layouts/' . $this->layout . '.php';
@@ -15,7 +17,6 @@ Class View {
 
 	private function loadSlice($slice){
 		$file = '../views/slices/' . $slice . '.php';
-		extract($this->args);
 		
 		require_once $file;
 	}
