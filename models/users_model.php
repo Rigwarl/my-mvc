@@ -21,11 +21,10 @@ Class Users_Model extends Model{
 	}
 
 	public function login(){
-		//todo getOne and normal return
-		$users = $this->get($this->data_login);
+		//todo normal return
+		$user = $this->getOne($this->data_login);
 
-		if ($users) {
-			$user = $users[0];
+		if ($user) {
 			$_SESSION['logged'] = true;
 			$_SESSION['login'] = $user['login'];
 			$_SESSION['class'] = $user['class'];

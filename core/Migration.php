@@ -8,7 +8,7 @@ Class Migration extends Model{
 		parent::__construct();
 		$this->table = 'options';
 
-		$db = $this->getOne('name', 'db');
+		$db = $this->getOneBy('name', 'db');
 		$version = $db ? $db['value'] : '-1';
 		$this->migrations = glob('../migrations/*.php');
 

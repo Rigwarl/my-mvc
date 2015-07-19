@@ -40,25 +40,12 @@ Class Model {
 		return $this->is_valid;
 	}
 
+	// db methods
 	public function getAll(){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table}");
 		$sth->execute();
 		
 		return $sth->fetchAll();
-	}
-
-	public function getID($id){
-		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE id=:id");
-		$sth->execute(array('id' => $id));
-
-		return $sth->fetch();
-	}
-
-	public function getOne($name, $value){
-		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name");
-		$sth->execute(array($name => $value));
-
-		return $sth->fetch();
 	}
 
 	public function get($data, $separator = 'AND'){
@@ -67,6 +54,35 @@ Class Model {
 		$sth->execute($data);
 
 		return $sth->fetchAll();
+	}
+
+	public function getOne($data, $separator = 'AND'){
+		$set = $this->sqlSet($data, $separator);
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set");
+		$sth->execute($data);
+
+		return $sth->fetch();
+	}
+
+	public function getBy($name, $value){
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name");
+		$sth->execute(array($name => $value));
+
+		return $sth->fetchAll();
+	}
+
+	public function getOneBy($name, $value){
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name");
+		$sth->execute(array($name => $value));
+
+		return $sth->fetch();
+	}
+
+	public function getID($id){
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE id=:id");
+		$sth->execute(array('id' => $id));
+
+		return $sth->fetch();
 	}
 
 	public function save($data){
