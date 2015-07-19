@@ -1,7 +1,9 @@
 <div class="container">
     <h1>Log in</h1>
   
-    <?php echo $this->is_error('incorrect') ? "<p class='alert alert-danger'>Login or password is incorrect</p>" : ''; ?>
+    <?php if ($this->is_error('incorrect')): ?>
+       <p class='alert alert-danger'>Login or password is incorrect</p>
+    <?php endif; ?>
 
     <form method="post" action="/auth/login">
       <div class="form-group<?php echo $this->is_error('login') ? ' has-error' : ''?>">
