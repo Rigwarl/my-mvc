@@ -5,7 +5,7 @@ Class View {
 	public $user;
 	public $layout = 'default';
 	private $args = array();
-	// change title in all controllers
+	// todo change title in all controllers
 	public $title = 'mymvc';
 	public $errors = array();
 

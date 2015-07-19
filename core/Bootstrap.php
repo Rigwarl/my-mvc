@@ -2,7 +2,8 @@
 
 Class Bootstrap {
 
-	//todo router
+	// todo router
+	// todo remove user model autoload
 
 	private $controller;
 	private $users;
