@@ -89,7 +89,9 @@ Class Model {
 		//todo return id or item
 		$set = $this->sqlSet($data);
 		$sth = $this->db->prepare("INSERT INTO {$this->table} SET $set");
-		return $sth->execute($data);
+		$sth->execute($data);
+
+		return $this->db->lastInsertId();
 	}
 
 	private function sqlSet($data, $separator = ', '){
