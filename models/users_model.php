@@ -22,10 +22,7 @@ Class Users_Model extends Model{
 
 	public function login(){
 		//todo getOne and normal return
-		$users = $this->get(array(
-			'login' => $this->data_login['login'],
-			'password' => $this->data_login['password']
-		));
+		$users = $this->get($this->data_login);
 
 		if ($users) {
 			$user = $users[0];
