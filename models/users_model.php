@@ -21,7 +21,6 @@ Class Users_Model extends Model{
 	}
 
 	public function login(){
-		//todo normal return
 		$user = $this->getOne($this->data_login);
 
 		if ($user) {
@@ -32,7 +31,7 @@ Class Users_Model extends Model{
 			$this->errors['incorrect'] = true;
 		}
 
-		return isset($user);
+		return $user;
 	}
 
 	public function logout(){
