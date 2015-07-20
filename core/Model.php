@@ -23,7 +23,7 @@ Class Model {
 	}
 
 	public function load($data, $name = ''){
-		$name = "" ?: "_$name";
+		$name = $name ? "_$name" : "";
 		foreach ($this->{'rules' . $name} as $key => $item){
 			$this->{'data' . $name}[$key] = isset($data[$key]) ? $data[$key] : ''; 
 		}
@@ -31,7 +31,7 @@ Class Model {
 	}
 
 	public function validate($name = ''){
-		$name = "" ?: "_$name";
+		$name = $name ? "_$name" : "";
 		$this->errors = validate($this->{'data' . $name}, $this->{'rules' . $name});
 
 		if (!$this->errors) {
