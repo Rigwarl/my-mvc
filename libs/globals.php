@@ -18,10 +18,24 @@ function get_from($value, $array){
 	return $result;
 }
 
+function set_array($array_old, $array_new){
+	foreach ($array_new $key => $value){
+		$array_old[$key] = $value; 
+	}
+}
+
 function post($value){
 	return get_from($value, $_POST);
 }
 
+function get($value){
+	return get_from($value, $_GET);
+}
+
 function session($value){
+	return get_from($value, $_SESSION);
+}
+
+function set_session($value){
 	return get_from($value, $_SESSION);
 }
