@@ -38,22 +38,41 @@ Class Auth extends Controller{
 	}
 
 	public function register(){
-		//todo capcha
+		//todo capcha and encrypt
 		if ($this->user['logged']){
 			header('Location: /');
 		}
 
-		$data = array();
+		$data = array(
+			'login' => '',
+			'password' => '',
+			'password2' => '',
+			'email' => ''
+		);
+
+		$errors = array();
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$data = $this->users->register($_POST);
-			
-			if (!$data) {
-				header('Location: /auth/login');
+			$data = $_POST;
+
+			$errors = validate($data, array(
+				'password2' => 'required|equal:password'
+			));
+
+			$this->users->load($data);
+			$this->users->validate();
+
+			if (!$errors && $this->users->is_valid){
+				$user_id = $this->users->register();
+
+				if ($user_id) {
+					header('Location: /auth/login');
+				}
 			}
 		}
 
-		$data['title'] = 'Registration';
+		$this->view->title = 'Registration';
+		$this->view->errors = array_merge($errors, $this->users->errors);
 		$this->view->render('auth/registration', $data);
 	}
 }
