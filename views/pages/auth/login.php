@@ -16,7 +16,7 @@
         <label class="control-label" for="password">
           <?php echo $this->is_error('password', 'required') ? 'Password must not be blank' : 'Password'; ?>
         </label>
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="<?php echo $password; ?>">
       </div>
       <button type="submit" class="btn btn-primary">Log in</button>
     </form>
