@@ -39,6 +39,14 @@ function check($data, $field_name, $rule){
 			}
 			break;
 
+		case 'email':
+			// todo change to regular exp
+			if (!stripos($field, '@') || !stripos($field, '.')) {
+				$error = $rule_name;
+			}
+			break;
+
+
 		//must be last
 		case 'not_required':
 			break;
