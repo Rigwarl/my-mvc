@@ -46,6 +46,12 @@ function check($data, $field_name, $rule){
 			}
 			break;
 
+		case 'equal':
+			if ($field != $data[$rule_val]) {
+				$error = $rule_name;
+			}
+			break;
+
 
 		//must be last
 		case 'not_required':
