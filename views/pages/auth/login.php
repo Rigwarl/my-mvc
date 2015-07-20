@@ -10,7 +10,7 @@
         <label class="control-label" for="login">
           <?php echo $this->is_error('login', 'required') ? 'Login must not be blank' : 'Login'; ?>
         </label>
-        <input type="text" name="login" class="form-control" id="login" placeholder="login" value="<?php echo $login; ?>">
+        <input type="text" name="login" class="form-control" id="login" placeholder="Login" value="<?php echo $login; ?>">
       </div>
       <div class="form-group<?php echo $this->is_error('password') ? ' has-error' : ''?>">  
         <label class="control-label" for="password">
