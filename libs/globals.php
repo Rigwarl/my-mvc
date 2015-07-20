@@ -36,6 +36,6 @@ function session($value){
 	return get_from($value, $_SESSION);
 }
 
-function set_session($value){
-	return get_from($value, $_SESSION);
+function set_session($array){
+	return set_array($_SESSION, $array);
 }
