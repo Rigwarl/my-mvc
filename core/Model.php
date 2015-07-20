@@ -86,7 +86,6 @@ Class Model {
 	}
 
 	public function save($data){
-		//todo return id or item
 		$set = $this->sqlSet($data);
 		$sth = $this->db->prepare("INSERT INTO {$this->table} SET $set");
 		$sth->execute($data);
