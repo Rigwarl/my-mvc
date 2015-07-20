@@ -11,8 +11,8 @@ Class Users_Model extends Model{
 		session_start();
 		$this->user = array(
 			'logged' => isset($_SESSION['logged']),
-			'login' => isset($_SESSION['login']) ? $_SESSION['login'] : null,
-			'class' => isset($_SESSION['class']) ? $_SESSION['class'] : null
+			'login'  => isset($_SESSION['login']) ? $_SESSION['login'] : null,
+			'class'  => isset($_SESSION['class']) ? $_SESSION['class'] : null
 		);
 	}
 
@@ -20,7 +20,7 @@ Class Users_Model extends Model{
 	protected $rules = array(
 		'login'    => 'required|min_len:4',
 		'password' => 'required|min_len:6',
-		'email' => 'required|email'
+		'email'    => 'required|email'
 	);
 
 	protected $rules_login = array(
