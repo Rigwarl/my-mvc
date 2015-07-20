@@ -47,7 +47,8 @@ function check($data, $field_name, $rule){
 			break;
 
 		case 'equal':
-			if ($field != $data[$rule_val]) {
+			$equal_to = isset($data[$rule_val]) ? $data[$rule_val] : '';
+			if ($field != $equal_to) {
 				$error = $rule_name;
 			}
 			break;
