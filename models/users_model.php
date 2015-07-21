@@ -9,11 +9,7 @@ Class Users_Model extends Model{
 		$this->table = 'users';
 
 		session_start();
-		$this->user = array(
-			'logged' => isset($_SESSION['logged']),
-			'login'  => isset($_SESSION['login']) ? $_SESSION['login'] : null,
-			'class'  => isset($_SESSION['class']) ? $_SESSION['class'] : null
-		);
+		$this->user = globals::session(array('logged', 'login', 'class'));
 	}
 
 	// todo some check for unallowable symbols
@@ -32,9 +28,11 @@ Class Users_Model extends Model{
 		$user = $this->getOne($this->data_login);
 
 		if ($user) {
-			$_SESSION['logged'] = true;
-			$_SESSION['login'] = $user['login'];
-			$_SESSION['class'] = $user['class'];
+			globals::set_session(array(
+				'logged' => true,
+				'login'  => $user['login'],
+				'class'  => $user['class']
+			));
 		} else {
 			$this->errors['incorrect'] = true;
 		}

@@ -19,7 +19,11 @@ Class Auth extends Controller{
 		);
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$data = $_POST;
+			$data = globals::post(array(
+				'login', 
+				'password'
+			));
+
 			$this->users->load($data, 'login');
 			$this->users->validate('login');
 
@@ -53,7 +57,12 @@ Class Auth extends Controller{
 		$errors = array();
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$data = $_POST;
+			$data = globals::post(array(
+				'login',
+				'password',
+				'password2',
+				'email'
+			));
 
 			$errors = validate($data, array(
 				'password2' => 'required|equal:password'
