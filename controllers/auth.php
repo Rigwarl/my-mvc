@@ -5,12 +5,12 @@ Class Auth extends Controller{
 	public function logout(){
 		$this->users->logout();
 
-		header('Location: /auth/login');
+		$this->header('/auth/login');
 	}
 
 	public function login(){
 		if ($this->user['logged']){
-			header('Location: /');
+			$this->header('/');
 		}
 
 		$data = array(
@@ -31,7 +31,7 @@ Class Auth extends Controller{
 				$user = $this->users->login();
 
 				if ($user){
-					header('Location: /');
+					$this->header('/');
 				}
 			}
 		}
@@ -44,7 +44,7 @@ Class Auth extends Controller{
 	public function register(){
 		//todo capcha and encrypt
 		if ($this->user['logged']){
-			header('Location: /');
+			$this->header('/');
 		}
 
 		$data = array(
@@ -75,7 +75,7 @@ Class Auth extends Controller{
 				$user_id = $this->users->register();
 
 				if ($user_id) {
-					header('Location: /auth/login');
+					$this->header('/auth/login');
 				}
 			}
 		}

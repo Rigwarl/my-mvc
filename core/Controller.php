@@ -19,4 +19,9 @@ Class Controller {
 		require_once '../models/' . $model_name . '.php';
 		return new $model_name();
 	}
+
+	protected function header($url){
+		header("Location: $url");
+		exit;
+	}
 }
