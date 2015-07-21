@@ -85,7 +85,10 @@ Class Model {
 		return $sth->fetch();
 	}
 
-	public function save($data){
+	public function save($data = null){
+		if ($data === null){
+			$data = $this->data;
+		}
 		$set = $this->sqlSet($data);
 		$sth = $this->db->prepare("INSERT INTO {$this->table} SET $set");
 		$sth->execute($data);
