@@ -11,7 +11,6 @@ Class Professors extends Admin{
 
 	public function edit($id){
 		$data = array(
-			'id' => $id,
 			'name' => '',
 			'patronymic' => '',
 			'surname' => '',
@@ -29,6 +28,8 @@ Class Professors extends Admin{
 		}
 
 		if (globals::is_post()){
+			//todo date format
+			//todo update if exists
 			$data = globals::post(array(
 				'name',
 				'patronymic',
@@ -36,14 +37,18 @@ Class Professors extends Admin{
 				'birth',
 				'about'
 			));
-			$data['id'] = $id;
 
 			$this->model->load($data);
 			$this->model->validate();
 
 			if ($this->model->is_valid){
 				if ($id) {
-
+					if ($this->model->update($id)) {
+						$this->view->msgs['saved'] = true;
+					} else {
+						$errors['save'] = true;
+						$data = $this->model->getId($id);
+					}
 				} else {
 					$id = $this->model->save();
 
@@ -57,6 +62,7 @@ Class Professors extends Admin{
 			}
 		}
 
+		$data['id'] = $id;
 		$this->view->errors = array_merge($errors, $this->model->errors);
 		$this->view->title = 'Professors edit';
 		$this->view->render('admin/professors/edit', $data);
