@@ -9,102 +9,63 @@ Class Users_Model extends Model{
 		$this->table = 'users';
 
 		session_start();
-		$this->user = array(
-			'logged' => isset($_SESSION['logged']),
-			'login' => isset($_SESSION['login']) ? $_SESSION['login'] : null,
-			'class' => isset($_SESSION['class']) ? $_SESSION['class'] : null
-		);
+		$this->user = globals::session(array('logged', 'login', 'class'));
 	}
 
-	public function login($data){
-		$data = array_merge(array(
-			'login' => '',
-			'password' => ''
-		), $data);
+	// todo some check for unallowable symbols
+	protected $rules = array(
+		'login'    => 'required|min_len:4',
+		'password' => 'required|min_len:6',
+		'email'    => 'required|email'
+	);
 
-		$result = array();
+	protected $rules_login = array(
+		'login'    => 'required',
+		'password' => 'required'
+	);
 
-		if ($data['login'] == '') {
-			$result['login'] = 'Login required';
-		}
+	public function login(){
+		$user = $this->getOne($this->data_login);
 
-		if ($data['password'] == '') {
-			$result['password'] = 'Password required';
-		}
-
-		if (!$result) {
-			$users = $this->get(array(
-				'login' => $data['login'],
-				'password' => $data['password']
+		if ($user) {
+			globals::set_session(array(
+				'logged' => true,
+				'login'  => $user['login'],
+				'class'  => $user['class']
 			));
-
-			if ($users) {
-				$user = $users[0];
-				$_SESSION['logged'] = true;
-				$_SESSION['login'] = $user['login'];
-				$_SESSION['class'] = $user['class'];
-			} else {
-				$result['incorrect'] = 'Login or password is incorrect';
-			}
+		} else {
+			$this->errors['incorrect'] = true;
 		}
 
-		return $result;
+		return $user;
 	}
 
 	public function logout(){
-		// todo mb some unsets?
 		session_destroy();
 	}
 
-	public function register($data){
-		$data = array_merge(array(
-			'login' => '',
-			'password' => '',
-			'password2' => '',
-			'email' => ''
-		), $data);
+	public function register(){
+		$user_id = 0;
 
-		$result = array();
+		$login_exists = $this->getOneBy('login', $this->data['login']);
+		$email_exists = $this->getOneBy('email', $this->data['email']);
 
-		if ($data['login'] == '') {
-			$result['login'] = 'Login required';
-		} elseif (strlen($data['login']) < 4) {
-			$result['login'] = 'Login too short. Use at least 4 characters';
-		} elseif ($this->get(array('login' => $data['login']))) {
-			$result['login'] = 'Login '. $data['login'] .' already used.';
+		if ($login_exists) {
+			$this->errors['login'] = 'exists';
 		}
 
-		if ($data['password'] == '') {
-			$result['password'] = 'Password required';
-		} elseif (strlen($data['password']) < 6) {
-			$result['password'] = 'Password too short. Use at least 6 characters';
-		} elseif ($data['password'] !== $data['password2']) {
-			$result['password'] = 'Passwords does not match';
-			$result['password2'] = 'Passwords does not match';
+		if ($email_exists) {
+			$this->errors['email'] = 'exists';
 		}
 
-		if ($data['email'] == '') {
-			$result['email'] = 'Email required';
-		} elseif (!stripos($data['email'], '@') || !stripos($data['email'], '.')) {
-			$result['email'] = 'Email invalid';
-		} elseif ($this->get(array('email' => $data['email']))) {
-			$result['email'] = 'Email '. $data['email'] .' already used.';
-		}
+		if (!$login_exists && !$email_exists) {
+			$user_id = $this->save($this->data);
 
-		if (!$result) {
-			$user = array(
-				'login' => $data['login'],
-				'password' => $data['password'],
-				'email' => $data['email'],
-			);
-			// todo some check for unallowable symbols
-			$saved = $this->save($user);
-
-			if (!$saved) {
-				$result['error'] = 'Sorry, something went wrong. Please try later...';
+			if (!$user_id) {
+				$this->errors['save'] = true;
 			}
 		}
 
-		return $result;
+		return $user_id;
 	}
 }

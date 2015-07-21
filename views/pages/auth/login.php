@@ -1,20 +1,22 @@
 <div class="container">
     <h1>Log in</h1>
   
-    <?php echo isset($incorrect) ? "<p class='alert alert-danger'>$incorrect</p>" : ''; ?>
+    <?php if ($this->is_error('incorrect')): ?>
+       <p class='alert alert-danger'>Login or password is incorrect</p>
+    <?php endif; ?>
 
     <form method="post" action="/auth/login">
-      <div class="form-group<?php echo isset($login) ? ' has-error' : ''?>">
+      <div class="form-group<?php echo $this->is_error('login') ? ' has-error' : ''?>">
         <label class="control-label" for="login">
-          <?php echo isset($login) ? $login : 'Login'; ?>
+          <?php echo $this->is_error('login', 'required') ? 'Login must not be blank' : 'Login'; ?>
         </label>
-        <input type="text" name="login" class="form-control" id="login" placeholder="login">
+        <input type="text" name="login" class="form-control" id="login" placeholder="Login" value="<?php echo $login; ?>">
       </div>
-      <div class="form-group<?php echo isset($password) ? ' has-error' : ''?>">  
+      <div class="form-group<?php echo $this->is_error('password') ? ' has-error' : ''?>">  
         <label class="control-label" for="password">
-          <?php echo isset($password) ? $password : 'Password'; ?>
+          <?php echo $this->is_error('password', 'required') ? 'Password must not be blank' : 'Password'; ?>
         </label>
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="<?php echo $password; ?>">
       </div>
       <button type="submit" class="btn btn-primary">Log in</button>
     </form>

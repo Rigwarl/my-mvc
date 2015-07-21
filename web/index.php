@@ -8,7 +8,10 @@ require_once '../core/controller.php';
 require_once '../core/model.php';
 require_once '../core/view.php';
 
+require_once '../libs/validator.php';
+require_once '../libs/globals.php';
 require_once '../libs/html.php';
 
-$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'home';
+$url = rtrim(globals::get('url'), '/') ?: 'home';
+
 $app = new Bootstrap($url);

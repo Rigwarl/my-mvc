@@ -13,37 +13,75 @@ Class Auth extends Controller{
 			header('Location: /');
 		}
 
-		$data = array();
+		$data = array(
+			'login' => '',
+			'password' => ''
+		);
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$data = $this->users->login($_POST);
+			$data = globals::post(array(
+				'login', 
+				'password'
+			));
 
-			if (!$data){
-				header('Location: /');
+			$this->users->load($data, 'login');
+			$this->users->validate('login');
+
+			if ($this->users->is_valid) {
+				$user = $this->users->login();
+
+				if ($user){
+					header('Location: /');
+				}
 			}
 		}
 
-		$data['title'] = 'Log in';
+		$this->view->title = 'Log in';
+		$this->view->errors = $this->users->errors;
 		$this->view->render('auth/login', $data);
 	}
 
 	public function register(){
-		//todo capcha
+		//todo capcha and encrypt
 		if ($this->user['logged']){
 			header('Location: /');
 		}
 
-		$data = array();
+		$data = array(
+			'login' => '',
+			'password' => '',
+			'password2' => '',
+			'email' => ''
+		);
+
+		$errors = array();
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$data = $this->users->register($_POST);
-			
-			if (!$data) {
-				header('Location: /auth/login');
+			$data = globals::post(array(
+				'login',
+				'password',
+				'password2',
+				'email'
+			));
+
+			$errors = validate($data, array(
+				'password2' => 'required|equal:password'
+			));
+
+			$this->users->load($data);
+			$this->users->validate();
+
+			if (!$errors && $this->users->is_valid){
+				$user_id = $this->users->register();
+
+				if ($user_id) {
+					header('Location: /auth/login');
+				}
 			}
 		}
 
-		$data['title'] = 'Registration';
+		$this->view->title = 'Registration';
+		$this->view->errors = array_merge($errors, $this->users->errors);
 		$this->view->render('auth/registration', $data);
 	}
 }
