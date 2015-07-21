@@ -5,7 +5,7 @@ Class Professors extends Controller{
 	public function index(){
 		$data = array('professors' => $this->model->getAll());
 
-		$data['title'] = 'Professors';
+		$this->view->title = 'Professors';
 		$this->view->render('professors/index', $data);
 	}
 
@@ -15,5 +15,4 @@ Class Professors extends Controller{
 
 		$this->view->render('professors/show', $data);
 	}
-
 }
