@@ -96,6 +96,16 @@ Class Model {
 		return $this->db->lastInsertId();
 	}
 
+	public function update($id, $data = null){
+		if ($data === null){
+			$data = $this->data;
+		}
+		$set = $this->sqlSet($data);
+		$sth = $this->db->prepare("UPDATE {$this->table} SET $set WHERE id=:id");
+		$data['id'] = $id;
+		return $sth->execute($data);
+	}
+
 	private function sqlSet($data, $separator = ', '){
 		$set = '';
 		foreach ($data as $key => $param){
