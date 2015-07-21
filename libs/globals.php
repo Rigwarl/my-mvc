@@ -40,4 +40,10 @@ Class globals {
 	public static function set_session($array){
 		return self::set_array($_SESSION, $array);
 	}
+
+	public static function is_post(){
+		return $_SERVER['REQUEST_METHOD'] === 'POST';
+	}
+
+
 }

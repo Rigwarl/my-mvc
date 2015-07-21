@@ -18,7 +18,7 @@ Class Auth extends Controller{
 			'password' => ''
 		);
 
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		if (globals::is_post()) {
 			$data = globals::post(array(
 				'login', 
 				'password'
@@ -56,7 +56,7 @@ Class Auth extends Controller{
 
 		$errors = array();
 
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		if (globals::is_post()) {
 			$data = globals::post(array(
 				'login',
 				'password',
