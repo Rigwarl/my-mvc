@@ -5,43 +5,59 @@ Class Professors extends Admin{
 	public function index(){
 		$data = array('professors' => $this->model->getAll());
 
-		$data['title'] = 'Admin - Professors';
+		$this->view->title = 'Admin - Professors';
 		$this->view->render('admin/professors/index', $data);
 	}
 
 	public function edit($id){
-		if ($id !== 'new') {
+		$data = array(
+			'id' => $id,
+			'name' => '',
+			'patronymic' => '',
+			'surname' => '',
+			'birth' => '',
+			'about' => ''
+		);
+		$errors = array();
+
+		if ($id){
 			$data = $this->model->getId($id);
+
 			if (!$data) {
 				throw new exception('404');
 			}
-
-			$data['title'] = 'Admin - Edit professor' . $data['name'];
-		} else {
-			$data['title'] = 'Admin - New professor';
-			$data['id'] = 'new';
 		}
 
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			$this->save($data);
+		if (globals::is_post()){
+			$data = globals::post(array(
+				'name',
+				'patronymic',
+				'surname',
+				'birth',
+				'about'
+			));
+			$data['id'] = $id;
+
+			$this->model->load($data);
+			$this->model->validate();
+
+			if ($this->model->is_valid){
+				if ($id) {
+
+				} else {
+					$id = $this->model->save();
+
+					if ($id){
+						header("Location: /admin/professors/edit/$id");
+					} else {
+						$errors['save'] = true;
+					}
+				}
+			}
 		}
 
-		$this->view->render('admin/professors/edit', $data);
-	}
-
-	private function save($data){
-		if ($data['id'] === 'new') {
-			$data = $this->model->add($_POST);
-			$data['id'] = 'new';
-		} else {
-			$data = $this->model->change($_POST);
-		}
-
-		if (!$data) {
-			//todo get the id of saved elem
-		} else {
-		}
-
+		$this->view->errors = array_merge($errors, $this->model->errors);
+		$this->view->title = 'Professors edit';
 		$this->view->render('admin/professors/edit', $data);
 	}
 }
