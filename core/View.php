@@ -9,6 +9,14 @@ Class View {
 	public $title = 'mymvc';
 	public $errors = array();
 
+	protected function message($name){
+		if (globals::session($name)){
+			globals::unset_session($name);
+			return true;
+		}
+		return false;
+	}
+
 	public function is_error($name, $value = true){
 		$error = isset($this->errors[$name]) ? $this->errors[$name] : false;
 		return $error == $value;

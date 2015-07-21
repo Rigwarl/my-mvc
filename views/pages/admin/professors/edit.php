@@ -3,6 +3,8 @@
 
 	<?php if($this->is_error('save')): ?>
     <p class='alert alert-danger'>Sorry, something went wrong. Please try later...</p>
+  <?php elseif($this->message('added')): ?>
+    <p class='alert alert-success'>Professor successfully added! <a href="#" class="btn btn-success"> Add one more</a></p>
   <?php endif; ?>
 
   <form method="post" action="/admin/professors/edit/<?php echo $id; ?>">

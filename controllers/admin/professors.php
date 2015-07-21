@@ -48,7 +48,8 @@ Class Professors extends Admin{
 					$id = $this->model->save();
 
 					if ($id){
-						header("Location: /admin/professors/edit/$id");
+						globals::set_session('added');
+						$this->header("/admin/professors/edit/$id");
 					} else {
 						$errors['save'] = true;
 					}
