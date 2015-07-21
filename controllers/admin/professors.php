@@ -41,6 +41,7 @@ Class Professors extends Admin{
 			$this->model->load($data);
 			$this->model->validate();
 
+			// todo add some comments
 			if ($this->model->is_valid){
 				if ($id) {
 					if ($this->model->update($id)) {

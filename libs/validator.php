@@ -1,6 +1,5 @@
 <?php
 
-//todo mb check type
 function validate($data, $ruleset){
 	$errors = array();
 	foreach ($ruleset as $field_name => $rules) {
