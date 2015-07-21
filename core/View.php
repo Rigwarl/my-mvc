@@ -8,8 +8,17 @@ Class View {
 	// todo change title in all controllers
 	public $title = 'mymvc';
 	public $errors = array();
+	public $msgs = array();
 
-	protected function message($name){
+	public function render($view, $args = array()) {
+		$layout = '../views/layouts/' . $this->layout . '.php';
+		$this->args = $args;
+
+		require_once $layout;
+	}
+
+	// sms - session message!
+	protected function sms($name){
 		if (globals::session($name)){
 			globals::unset_session($name);
 			return true;
@@ -17,16 +26,14 @@ Class View {
 		return false;
 	}
 
-	public function is_error($name, $value = true){
-		$error = isset($this->errors[$name]) ? $this->errors[$name] : false;
-		return $error == $value;
+	protected function msg($name, $value = true){
+		$msg = isset($this->msgs[$name]) ? $this->msgs[$name] : false;
+		return $msg == $value;
 	}
 
-	public function render($view, $args = array()) {
-		$layout = '../views/layouts/' . $this->layout . '.php';
-		$this->args = $args;
-
-		require_once $layout;
+	private function is_error($name, $value = true){
+		$error = isset($this->errors[$name]) ? $this->errors[$name] : false;
+		return $error == $value;
 	}
 
 	private function loadSlice($slice){

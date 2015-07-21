@@ -3,8 +3,10 @@
 
 	<?php if($this->is_error('save')): ?>
     <p class='alert alert-danger'>Sorry, something went wrong. Please try later...</p>
-  <?php elseif($this->message('added')): ?>
-    <p class='alert alert-success'>Professor successfully added! <a href="#" class="btn btn-success"> Add one more</a></p>
+  <?php elseif($this->sms('added')): ?>
+    <p class='alert alert-success'>Professor successfully added! <a href="/admin/professors/edit" class="btn btn-success"> Add one more</a></p>
+  <?php elseif($this->msg('saved')): ?>
+    <p class='alert alert-success'>Professor successfully changed! <a href="/admin/professors" class="btn btn-primary"> Back to list</a></p>
   <?php endif; ?>
 
   <form method="post" action="/admin/professors/edit/<?php echo $id; ?>">
