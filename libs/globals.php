@@ -19,7 +19,7 @@ Class globals {
 		return $result;
 	}
 
-	private static function set_array($array_old, $array_new){
+	private static function set_array(&$array_old, $array_new){
 		foreach ($array_new as $key => $value){
 			$array_old[$key] = $value; 
 		}
