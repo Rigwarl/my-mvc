@@ -18,18 +18,22 @@ Class Professors extends Admin{
 			'about' => ''
 		);
 		$errors = array();
+		$this->view->title = 'New professor';
 
 		if ($id){
+			// save prof, we will show it on get method
 			$data = $this->model->getId($id);
 
-			if (!$data) {
+			// save prof to new var we will use it and show if update on post fail
+			$data_old = $data;
+
+			if (!$data_old) {
 				throw new exception('404');
 			}
 		}
 
 		if (globals::is_post()){
 			//todo date format
-			//todo update if exists
 			$data = globals::post(array(
 				'name',
 				'patronymic',
@@ -41,22 +45,27 @@ Class Professors extends Admin{
 			$this->model->load($data);
 			$this->model->validate();
 
-			// todo add some comments
 			if ($this->model->is_valid){
 				if ($id) {
+					// if prof exists update
 					if ($this->model->update($id)) {
+						// if we updated him show success msg
 						$this->view->msgs['saved'] = true;
 					} else {
+						//if not we show old data
 						$errors['save'] = true;
-						$data = $this->model->getId($id);
+						$data = $data_old;
 					}
 				} else {
+					// if prof not exists create
 					$id = $this->model->save();
 
 					if ($id){
+						// if saved redirect to his edit page
 						globals::set_session('added');
 						$this->header("/admin/professors/edit/$id");
 					} else {
+						// if not saved show error
 						$errors['save'] = true;
 					}
 				}
@@ -65,7 +74,7 @@ Class Professors extends Admin{
 
 		$data['id'] = $id;
 		$this->view->errors = array_merge($errors, $this->model->errors);
-		$this->view->title = 'Professors edit';
+		$this->view->title = 'Professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
 		$this->view->render('admin/professors/edit', $data);
 	}
 }

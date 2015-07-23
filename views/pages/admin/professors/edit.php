@@ -1,5 +1,5 @@
 <div class="container">
-	<h1>Adding new professor</h1>
+	<h1><?php echo $this->title; ?></h1>
 
 	<?php if($this->is_error('save')): ?>
     <p class='alert alert-danger'>Sorry, something went wrong. Please try later...</p>
