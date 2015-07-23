@@ -51,6 +51,14 @@ function check($data, $field_name, $rule){
 				$error = $rule_name;
 			}
 			break;
+		
+		case 'date':
+			$format = $rule_val ?: 'Y-m-d';
+			$d = DateTime::createFromFormat($format, $field);
+			if (!$d || !($d->format($format) == $field)){
+				$error = $rule_name;
+			}
+			break;
 
 
 		//must be last

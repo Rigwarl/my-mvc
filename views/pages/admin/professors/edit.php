@@ -44,6 +44,8 @@
       <label class="control-label" for="birth">
         <?php if ($this->is_error('birth', 'required')): ?>
           Birth must not be blank
+        <?php elseif ($this->is_error('birth', 'date')): ?>
+          Birth format is incorrect
         <?php else: ?>
           Birth
         <?php endif; ?>

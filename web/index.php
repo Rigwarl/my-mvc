@@ -12,6 +12,8 @@ require_once '../libs/validator.php';
 require_once '../libs/globals.php';
 require_once '../libs/html.php';
 
+date_default_timezone_set('Europe/Moscow');
+
 $url = rtrim(globals::get('url'), '/') ?: 'home';
 
 $app = new Bootstrap($url);
