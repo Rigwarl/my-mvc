@@ -18,18 +18,20 @@ Class Professors extends Admin{
 			'about' => ''
 		);
 		$errors = array();
-		$this->view->title = 'New professor';
+		$title = 'New professor';
 
 		if ($id){
 			// save prof, we will show it on get method
 			$data = $this->model->getId($id);
 
-			// save prof to new var we will use it and show if update on post fail
-			$data_old = $data;
-
-			if (!$data_old) {
+			if (!$data) {
 				throw new exception('404');
 			}
+
+			// save prof to new var we will use it and show if update on post fail
+			$data_old = $data;
+			
+			$title = 'Professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
 		}
 
 		if (globals::is_post()){
@@ -74,7 +76,7 @@ Class Professors extends Admin{
 
 		$data['id'] = $id;
 		$this->view->errors = array_merge($errors, $this->model->errors);
-		$this->view->title = 'Professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
+		$this->view->title = $title;
 		$this->view->render('admin/professors/edit', $data);
 	}
 }
