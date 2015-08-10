@@ -106,6 +106,25 @@ Class Model {
 		return $sth->execute($data);
 	}
 
+	public function find($data, $separator = 'AND'){
+		// remove empty elements
+		foreach ($data as &$item){
+			unset($item);
+		}
+
+		$set = $this->sqlSet($data, $separator);
+		$set = str_replace('=', ' LIKE ', $set);
+
+		foreach ($data as &$item){
+			$item = '%' . $item . '%';
+		}
+		
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set");
+		$sth->execute($data);
+
+		return $sth->fetchAll();
+	}
+
 	private function sqlSet($data, $separator = ', '){
 		$set = '';
 		foreach ($data as $key => $param){
