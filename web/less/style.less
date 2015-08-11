@@ -1,0 +1,10 @@
+//mixin for generate indents
+.generate-indents(@max, @name, @value) when (@max >= 0) {
+  .@{name}@{max} {
+    @{value}: @max + 0px;
+  }
+  .generate-indents(@max - 5, @name, @value);
+}
+
+.generate-indents(50, mt, margin-top);
+.generate-indents(50, mb, margin-bottom);

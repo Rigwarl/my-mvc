@@ -6,7 +6,7 @@
 	    <p class='alert alert-danger'>Search rules must not be empty...</p>
 	<?php endif; ?>
 
-	<form method="post" action="/professors/find" class="form-inline">
+	<form method="post" action="/professors/find" class="form-inline mb15">
 	  <div class="form-group">
 		<label class="control-label" for="name">Name</label>
 		<input type="text" name="name" class="form-control" id="name" placeholder="Name" value="<?php echo $name; ?>">

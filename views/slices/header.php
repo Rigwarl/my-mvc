@@ -5,6 +5,7 @@
 	<title><?php echo $this->title; ?></title>
 
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
