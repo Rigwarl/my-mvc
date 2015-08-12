@@ -7,8 +7,6 @@
 
 	  <?php if($this->is_error('save')): ?>
 	  	<p class='alert alert-danger'>Sorry, something went wrong. Please try later...</p>
-	  <?php elseif($this->msg('saved')): ?>
-	    <p class='alert alert-success'>Professor successfully changed! <a href="/admin/professors" class="btn btn-primary"> Back to list</a></p>
 	  <?php endif; ?>
 
 	  <form method="post" action="/professors/comment/<?php echo $id; ?>">
