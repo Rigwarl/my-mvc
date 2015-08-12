@@ -21,7 +21,7 @@ Class Professors extends Admin{
 		$title = 'New professor';
 
 		if ($id){
-			// save prof, we will show it on get method
+			// save prof to var, we will show it on get method
 			$data = $this->model->getId($id);
 
 			if (!$data) {
