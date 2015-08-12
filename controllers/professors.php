@@ -49,6 +49,7 @@ Class Professors extends Controller{
 			'estimate' => '',
 			'comment'  => ''
 		);
+		$errors = array();
 
 		if (globals::is_post()) {
 			$comment = globals::post(array(
@@ -56,9 +57,17 @@ Class Professors extends Controller{
 				'estimate',
 				'comment'
 			));
+			$comment['estimate'] = (int) $comment['estimate'];
+
+			$comments_model = $this->loadModel('comments');
+			$comments_model->load($comment);
+			$comments_model->validate();
+
+			$errors = array_merge($errors, $comments_model->errors);
 		}
 
 		$data = array_merge($comment, $professor);
+		$this->view->errors = $errors;
 		$this->view->title = $title = 'Rating professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
 		$this->view->render('professors/comment', $data);
 	}

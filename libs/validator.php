@@ -6,7 +6,7 @@ function validate($data, $ruleset){
 		$rules = explode('|', $rules);
 
 		foreach ($rules as $rule) {
-			$error = check($data, $field_name, $rule);
+			$error = check_rules($data, $field_name, $rule);
 
 			if ($error) {
 				$errors[$field_name] = $error;
@@ -18,7 +18,7 @@ function validate($data, $ruleset){
 	return $errors;
 }
 
-function check($data, $field_name, $rule){
+function check_rules($data, $field_name, $rule){
 	$rule = explode(':', $rule);
 	$rule_name = $rule[0];
 	$rule_val = isset($rule[1]) ? $rule[1] : false;
@@ -28,6 +28,7 @@ function check($data, $field_name, $rule){
 	switch ($rule_name) {
 		case 'required':
 			if (!$field) {
+				// todo rewrite to class and remove this line
 				$error = $rule_name;
 			}
 			break;
@@ -56,6 +57,30 @@ function check($data, $field_name, $rule){
 			$format = $rule_val ?: 'Y-m-d';
 			$d = DateTime::createFromFormat($format, $field);
 			if (!$d || !($d->format($format) == $field)){
+				$error = $rule_name;
+			}
+			break;
+
+		case 'number':
+			if (!is_numeric($field)){
+				$error = $rule_name;
+			}
+			break;
+
+		case 'int':
+			if (!is_int($field)){
+				$error = $rule_name;
+			}
+			break;
+
+		case 'min':
+			if ($field < $rule_val){
+				$error = $rule_name;
+			}
+			break;
+
+		case 'max':
+			if ($field > $rule_val){
 				$error = $rule_name;
 			}
 			break;

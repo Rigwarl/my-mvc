@@ -26,11 +26,13 @@
 	      <label class="control-label" for="estimate">
 	        <?php if ($this->is_error('estimate', 'required')): ?>
 	          Estimate must not be blank
-	        <?php else: ?>
-	          Estimate from 1 to 10
+	        <?php elseif ($this->is_error('estimate')): ?>
+	          Estimate must be an integer from 1 to 10
+	      	<?php else: ?>
+	          Estimate
 	        <?php endif; ?>
 	      </label>
-	      <input type="text" name="estimate" class="form-control" id="estimate" placeholder="Estimate" value="<?php echo $estimate ?>">
+	      <input type="text" name="estimate" class="form-control" id="estimate" placeholder="Integer from 1 to 10" value="<?php echo $estimate ?>">
 	    </div>
 	    <div class="form-group<?php echo $this->is_error('comment') ? ' has-error' : ''; ?>">
 	      <label class="control-label" for="comment">
