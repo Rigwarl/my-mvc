@@ -32,7 +32,7 @@ Class Model {
 
 	public function validate($name = ''){
 		$name = $name ? "_$name" : "";
-		$this->errors = validate($this->{'data' . $name}, $this->{'rules' . $name});
+		$this->errors = validator::validate($this->{'data' . $name}, $this->{'rules' . $name});
 
 		if (!$this->errors) {
 			$this->is_valid = true;
