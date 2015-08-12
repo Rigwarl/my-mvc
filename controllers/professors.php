@@ -52,16 +52,31 @@ Class Professors extends Controller{
 		$errors = array();
 
 		if (globals::is_post()) {
+			// todo show message if saved and display comments
 			$comment = globals::post(array(
 				'title',
 				'estimate',
 				'comment'
 			));
+			$comment['prof_id'] = $id;
 			$comment['estimate'] = (int) $comment['estimate'];
 
 			$comments_model = $this->loadModel('comments');
 			$comments_model->load($comment);
 			$comments_model->validate();
+
+			if ($comments_model->is_valid){
+				$comment_id = $comments_model->save();
+
+				if ($comment_id){
+					// if saved redirect to professor page
+					globals::set_session('added');
+					$this->header("/professors/show/$id");
+				} else {
+					// if not saved show error
+					$errors['save'] = true;
+				}
+			}
 
 			$errors = array_merge($errors, $comments_model->errors);
 		}
