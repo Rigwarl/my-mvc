@@ -41,4 +41,25 @@ Class Professors extends Controller{
 		$this->view->title = $title;
 		$this->view->render('professors/index', array_merge($search, $data));
 	}
+
+	public function comment($id){
+		$professor = $this->model->getID($id);
+		$comment = array(
+			'title'    => '',
+			'estimate' => '',
+			'comment'  => ''
+		);
+
+		if (globals::is_post()) {
+			$comment = globals::post(array(
+				'title',
+				'estimate',
+				'comment'
+			));
+		}
+
+		$data = array_merge($comment, $professor);
+		$this->view->title = $title = 'Rating professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
+		$this->view->render('professors/comment', $data);
+	}
 }
