@@ -12,12 +12,16 @@ Class Model {
 	function __construct(){
 		if (!self::$singleDb) {
 			self::$singleDb = new PDO(
-				DB_DRIVE . ':host=' . 
+				DB_DRIVE . ':host=' .
 				DB_HOST . ';dbname=' .
 				DB_NAME, 
 				DB_USER,  
 				DB_PASSWORD
 			);
+
+			if (DEVELOP){
+				self::$singleDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			}
 		}
 		$this->db = self::$singleDb;
 	}
