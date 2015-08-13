@@ -22,11 +22,10 @@ Class Comments_Model extends Model{
 			// update prof rating only if comment saved
 			$comments = $this->getBy('prof_id', $this->data['prof_id']);
 
-			$rated = 0;
+			$rated = count($comments);
 			$points = 0;
-
+			
 			foreach ($comments as $comment){
-				$rated++;
 				$points += $comment['estimate'];
 			}
 
