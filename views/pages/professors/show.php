@@ -1,5 +1,8 @@
 
 <div class="container">
+	<?php if($this->sms('added')): ?>
+		<p class='alert alert-success'>Comment successfully added!</p>
+	<?php endif; ?>
 	<div class="clearfix">
 		<h1 class="pull-left"><?php echo $name . " " . $patronymic . " " . $surname; ?></h1>
 		<a href="/professors" class="btn btn-primary pull-right">← back to all professors</a>
