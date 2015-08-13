@@ -9,7 +9,7 @@ $comments = $this->db->query($comments_sql);
 
 $professors_sql = 'ALTER TABLE `professors`
 					ADD rated int NOT NULL default 0,
-					ADD rating int NULL
+					ADD rating decimal(2,1) NULL
 				';
 $professors = $this->db->query($professors_sql);
 
