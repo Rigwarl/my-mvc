@@ -44,6 +44,8 @@ Class Professors extends Controller{
 
 	public function comment($id){
 		$professor = $this->model->getID($id);
+		if (!$professor) throw new Exception('404');
+
 		$comment = array(
 			'title'    => '',
 			'estimate' => '',
