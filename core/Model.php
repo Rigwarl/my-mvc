@@ -42,7 +42,7 @@ Class Model {
 
 	// db methods
 	public function getAll(){
-		$sth = $this->db->prepare("SELECT * FROM {$this->table}");
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} ORDER BY id DESC");
 		$sth->execute();
 		
 		return $sth->fetchAll();
@@ -50,7 +50,7 @@ Class Model {
 
 	public function get($data, $separator = 'AND'){
 		$set = $this->sqlSet($data, $separator);
-		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set");
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
 		return $sth->fetchAll();
@@ -65,7 +65,7 @@ Class Model {
 	}
 
 	public function getBy($name, $value){
-		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name");
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name ORDER BY id DESC");
 		$sth->execute(array($name => $value));
 
 		return $sth->fetchAll();
@@ -119,7 +119,7 @@ Class Model {
 			$item = '%' . $item . '%';
 		}
 		
-		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set");
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
 		return $sth->fetchAll();
