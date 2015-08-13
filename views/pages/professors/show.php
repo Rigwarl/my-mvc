@@ -1,4 +1,3 @@
-
 <div class="container">
 	<?php if($this->sms('added')): ?>
 		<p class='alert alert-success'>Comment successfully added!</p>
@@ -11,7 +10,12 @@
 	<p class="h4">about professor:</p>
 	<p><?php echo $about; ?></p>
 	<a href="/professors/comment/<?php echo $id ?>" class="btn btn-success">Rate this professor</a>
-	<p class="h3">Average rating: </p>
+
+	<?php if ($rated): ?>
+		<p class="h3">Average rating: <?php echo $rating; ?>, rated <?php echo $rated; ?> times</p>
+	<?php else: ?>
+		<p class="h3">Not rated yet</p>
+	<?php endif; ?>
 	
 	<?php if ($comments): ?>
 		<h3>Comments</h3>

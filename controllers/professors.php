@@ -71,7 +71,7 @@ Class Professors extends Controller{
 			$comments_model->validate();
 
 			if ($comments_model->is_valid){
-				$comment_id = $comments_model->save();
+				$comment_id = $comments_model->add();
 
 				if ($comment_id){
 					// if saved redirect to professor page
