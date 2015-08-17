@@ -64,7 +64,7 @@ Class Auth extends Controller{
 				'email'
 			));
 
-			$errors = validate($data, array(
+			$errors = validator::validate($data, array(
 				'password2' => 'required|equal:password'
 			));
 
