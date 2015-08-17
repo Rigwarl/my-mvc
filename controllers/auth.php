@@ -9,7 +9,7 @@ Class Auth extends Controller{
 	}
 
 	public function login(){
-		if ($this->user['logged']){
+		if ($this->user['id']){
 			$this->header('/');
 		}
 
@@ -43,7 +43,7 @@ Class Auth extends Controller{
 
 	public function register(){
 		//todo capcha and encrypt
-		if ($this->user['logged']){
+		if ($this->user['id']){
 			$this->header('/');
 		}
 

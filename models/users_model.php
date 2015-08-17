@@ -9,7 +9,7 @@ Class Users_Model extends Model{
 		$this->table = 'users';
 
 		session_start();
-		$this->user = globals::session(array('logged', 'login', 'class'));
+		$this->user = globals::session(array('id', 'login', 'class'));
 	}
 
 	// todo some check for unallowable symbols
@@ -29,7 +29,7 @@ Class Users_Model extends Model{
 
 		if ($user) {
 			globals::set_session(array(
-				'logged' => true,
+				'id'     => $user['id'],
 				'login'  => $user['login'],
 				'class'  => $user['class']
 			));

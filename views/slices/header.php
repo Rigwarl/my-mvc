@@ -26,7 +26,7 @@
 			), 'nav navbar-nav'); ?>
 
 			<?php
-			if ($this->user['logged']) {
+			if ($this->user['id']) {
 				html::nav(array(
 					$this->user['login'] => '#',
 					'Logout' => 'auth/logout'
