@@ -12,7 +12,7 @@ Class Migration extends Model{
 		// check if table exists
 		// todo change it to direct check if table exists, now it will catch any error
 		try {
-			$this->version = $this->getOneBy('name', 'db');
+			$this->version = $this->getOneBy('name', 'db')['value'];
 		} catch(Exception $e) {
 			$this->version = -1;
 		}

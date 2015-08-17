@@ -23,7 +23,8 @@ $users_sql = 'CREATE TABLE `users` (
 $users = $this->db->query($users_sql);
 
 $options_sql = 'CREATE TABLE `options` (
-					`name`  varchar(50) PRIMARY KEY,
+					`id` int PRIMARY KEY AUTO_INCREMENT,
+					`name`  varchar(50) UNIQUE,
 					`value` varchar(50)
 				)';
 $options = $this->db->query($options_sql);
@@ -42,8 +43,4 @@ $admin = $this->save(array(
 		));
 $this->table = 'options';
 
-if ($professors && $users && $options && $db_version && $admin) {
-	$this->migrated($version);
-} else {
-	$this->error($version);
-}
+$this->migrated($professors && $users && $options && $db_version && $admin);
