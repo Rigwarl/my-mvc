@@ -3,20 +3,29 @@
 Class Migration extends Model{
 
 	private $migrations;
+	private $version;
 
 	function __construct(){
 		parent::__construct();
 		$this->table = 'options';
 
-		$db = $this->getOneBy('name', 'db');
-		$version = $db ? $db['value'] : '-1';
-		$this->migrations = glob('../migrations/*.php');
+		// check if table exists
+		// todo change it to direct check if table exists, now it will catch any error
+		try {
+			$this->version = $this->getOneBy('name', 'db');
+		} catch(Exception $e) {
+			$this->version = -1;
+		}
 
-		$this->migrate($version);
+		$this->migrations = glob('../migrations/*.php');
+		$this->migrate();
 	}
 
-	private function migrate($version){
-		$migration = isset($this->migrations[$version + 1]) ? $this->migrations[$version + 1] : false;
+	private function migrate(){
+		// check if here any migrations above
+		// todo check filename
+		$next = ++$this->version;
+		$migration = isset($this->migrations[$next]) ? $this->migrations[$next] : false;
 
 		if ($migration){
 			require_once $migration;
@@ -24,23 +33,27 @@ Class Migration extends Model{
 		die('migration done');
 	}
 
-	private function migrated($version){
+	private function migrated($condition){
+		if (!$condition) {
+			$this->error();
+		}
+
 		$sth = $this->db->prepare('UPDATE `options` SET `value`=:value WHERE `name`=:name');
 		$migrated = $sth->execute(array(
 			'name'  => 'db',
-			'value' => $version
+			'value' => $this->version
 		));
 
 		if ($migrated) {
-			echo '<p>Migrated to version ' . $version . '</p>';
+			echo '<p>Migrated to version ' . $this->version . '</p>';
 		} else {
-			$this->error($version);
+			$this->error();
 		}
 
-		$this->migrate($version);
+		$this->migrate();
 	}
 
-	private function error($version){
-		throw new exception('Can not migrate database to version ' . $version);
+	private function error(){
+		throw new exception('Can not migrate database to version ' . $this->version);
 	}
 }
