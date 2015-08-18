@@ -1,7 +1,9 @@
 <div class="container">
     <h1>Log in</h1>
-  
-    <?php if ($this->is_error('incorrect')): ?>
+    
+    <?php if ($this->sms('require_login')): ?>
+       <p class='alert alert-danger'>You must login first</p>
+    <?php elseif ($this->is_error('incorrect')): ?>
        <p class='alert alert-danger'>Login or password is incorrect</p>
     <?php endif; ?>
 
@@ -18,6 +20,7 @@
         </label>
         <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="<?php echo $password; ?>">
       </div>
-      <button type="submit" class="btn btn-primary">Log in</button>
+      <button type="submit" class="btn btn-success mr10">Log in</button>
+      <a href="/auth/register" class="btn btn-primary">Register</a>
     </form>
 </div>

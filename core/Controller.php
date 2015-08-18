@@ -24,4 +24,31 @@ Class Controller {
 		header("Location: $url");
 		exit;
 	}
+
+	protected function is_user($class){
+		if (is_array($class)){
+			foreach ($class as $item){
+				if ($this->user['class'] === $item){
+					return true;
+				}
+			}
+		} elseif ($this->user['class'] === $class){
+			return true;
+		}
+
+		return false;
+	}
+
+	protected function requireLogin(){
+		global $url;
+
+		if (!$this->user['id']){
+			globals::set_session(array(
+				'require_login' => true,
+				'backlink' => $url
+			));
+
+			$this->header('/auth/login');
+		}
+	}
 }

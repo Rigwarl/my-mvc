@@ -49,6 +49,8 @@ Class Professors extends Controller{
 	}
 
 	public function comment($id){
+		$this->requireLogin();
+
 		$professor = $this->model->getID($id);
 		if (!$professor) throw new Exception('404');
 
@@ -67,7 +69,7 @@ Class Professors extends Controller{
 				'comment'
 			));
 			$comment['prof_id'] = $id;
-			$comment['user_id'] = $this->users->user['id'];
+			$comment['user_id'] = $this->user['id'];
 			$comment['estimate'] = (int) $comment['estimate'];
 
 			$comments_model = $this->loadModel('comments');

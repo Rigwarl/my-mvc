@@ -31,7 +31,9 @@ Class Auth extends Controller{
 				$user = $this->users->login();
 
 				if ($user){
-					$this->header('/');
+					$link = '/' . globals::extract_session('backlink');
+
+					$this->header($link);
 				}
 			}
 		}
