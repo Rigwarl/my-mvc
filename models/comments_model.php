@@ -15,7 +15,7 @@ Class Comments_Model extends Model{
 		'comment'  => 'required'
 	);
 
-	public function add(){
+	public function approve(){
 		// todo transaction
 		$comment_id = $this->save();
 
@@ -40,5 +40,28 @@ Class Comments_Model extends Model{
 		}
 
 		return $comment_id;
+	}
+
+	public function disapprove(){
+
+	}
+
+	public function getComments($data){
+		$sql = 'SELECT 
+					c.title, u.login, c.estimate, c.comment
+				FROM 
+					users as u, comments as c
+				WHERE
+					u.id = c.user_id
+					AND c.prof_id=:prof_id';
+
+		if (isset($data['status'])){
+			$sql .= ' AND c.status=:status';
+		}
+
+		$sth = $this->db->prepare($sql);
+		$sth->execute($data);
+
+		return $sth->fetchAll();
 	}
 }

@@ -19,7 +19,7 @@ Class Professors extends Controller{
 		if (!$data)	throw new Exception('404');
 
 		$comments_model = $this->loadModel('comments');
-		$data['comments'] = $comments_model->get(array(
+		$data['comments'] = $comments_model->getComments(array(
 			'prof_id' => $id,
 			'status'  => 'approved'
 		));

@@ -23,11 +23,16 @@
 		<h3>Comments</h3>
 		<?php foreach ($comments as $comment): ?>
 			<hr>
-			<p class="h4">
-				<span class="h3"><?php echo $comment['estimate']; ?></span>
-				<?php echo $comment['title']; ?>
-			</p>
-			<p><?php echo $comment['comment']; ?></p>
+			<p><?php echo $comment['login']; ?></p>
+			<div class="row">
+				<div class="col-md-1">
+					<p class="h3 mt5"><?php echo $comment['estimate']; ?></p>
+				</div>
+				<div class="col-md-11">
+					<p class="h4"><?php echo $comment['title']; ?></p>
+					<p><?php echo $comment['comment']; ?></p>
+				</div>
+			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>
 </div>
