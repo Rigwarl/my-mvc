@@ -62,7 +62,7 @@ Class Model {
 
 	public function getOne($data, $separator = 'AND'){
 		$set = $this->sqlSet($data, $separator);
-		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set");
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
 		return $sth->fetch();
@@ -76,7 +76,7 @@ Class Model {
 	}
 
 	public function getOneBy($name, $value){
-		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name");
+		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name ORDER BY id DESC");
 		$sth->execute(array($name => $value));
 
 		return $sth->fetch();
