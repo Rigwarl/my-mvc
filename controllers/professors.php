@@ -54,6 +54,24 @@ Class Professors extends Controller{
 		$professor = $this->model->getID($id);
 		if (!$professor) throw new Exception('404');
 
+		// check last comment date
+		$comments_model = $this->loadModel('comments');
+		$last_comment = $comments_model->getOne(array(
+			'prof_id' => $id,
+			'user_id' => $this->user['id']
+		));
+
+		if ($last_comment){
+			$last_comment_date = new DateTime($last_comment['added']);
+			$interval = $last_comment_date->diff(new DateTime());
+
+			if ($interval->m < 6){
+				// if last comment this prof was in last 6 moths
+				globals::set_session('wait');
+				$this->header("/professors/show/$id");
+			}
+		}
+
 		$comment = array(
 			'title'    => '',
 			'estimate' => '',
@@ -72,12 +90,11 @@ Class Professors extends Controller{
 			$comment['user_id'] = $this->user['id'];
 			$comment['estimate'] = (int) $comment['estimate'];
 
-			$comments_model = $this->loadModel('comments');
 			$comments_model->load($comment);
 			$comments_model->validate();
 
 			if ($comments_model->is_valid){
-				$comment_id = $comments_model->add();
+				$comment_id = $comments_model->save();
 
 				if ($comment_id){
 					// if saved redirect to professor page

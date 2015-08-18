@@ -1,6 +1,8 @@
 <div class="container">
-	<?php if($this->sms('added')): ?>
-		<p class='alert alert-success'>Comment successfully added!</p>
+	<?php if($this->sms('wait')): ?>
+		<p class='alert alert-danger'>You can rate each professor once every six months</p>
+	<?php elseif($this->sms('added')): ?>
+		<p class='alert alert-success'>Comment is added successfully but it will take time to be approved by moderator.</p>
 	<?php endif; ?>
 	<div class="clearfix">
 		<h1 class="pull-left"><?php echo $name . " " . $patronymic . " " . $surname; ?></h1>
