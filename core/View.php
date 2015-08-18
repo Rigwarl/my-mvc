@@ -18,11 +18,7 @@ Class View {
 
 	// sms - session message!
 	protected function sms($name){
-		if (globals::session($name)){
-			globals::unset_session($name);
-			return true;
-		}
-		return false;
+		return globals::extract_session($name);
 	}
 
 	protected function msg($name, $value = true){

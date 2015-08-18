@@ -25,7 +25,7 @@ Class globals {
 		}
 	}
 
-	private static function unset_array($array_old, $array_new){
+	private static function unset_array(&$array_old, $array_new){
 		foreach ($array_new as $item){
 			unset($array_old[$item]); 
 		}
@@ -52,10 +52,17 @@ Class globals {
 
 	public static function unset_session($value){
 		if (is_array($value)){
-			unset_array($_SESSION, $value);
+			self::unset_array($_SESSION, $value);
 		} else {
 			unset($_SESSION[$value]);
 		}
+	}
+
+	public static function extract_session($value){
+		$session = self::session($value);
+		self::unset_session($value);
+
+		return $session;
 	}
 
 	public static function is_post(){
