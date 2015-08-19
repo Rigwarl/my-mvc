@@ -19,10 +19,7 @@ Class Professors extends Controller{
 		if (!$data)	throw new Exception('404');
 
 		$comments_model = $this->loadModel('comments');
-		$data['comments'] = $comments_model->getComments(array(
-			'prof_id' => $id,
-			'status'  => 'approved'
-		));
+		$data['comments'] = $comments_model->getProfComments($id, 'approved');
 
 		$this->view->title = $title = 'Professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
 		$this->view->render('professors/show', $data);

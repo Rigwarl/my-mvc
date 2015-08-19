@@ -5,6 +5,7 @@
 	<title><?php echo $this->title; ?></title>
 
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -21,7 +22,8 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<?php html::nav(array(
-				'Professors' => 'admin/professors'
+				'Professors' => 'admin/professors',
+				'Comments'   => 'admin/comments'
 			), 'nav navbar-nav'); ?>
 
 			<?php html::nav(array(

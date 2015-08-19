@@ -46,17 +46,42 @@ Class Comments_Model extends Model{
 
 	}
 
-	public function getComments($data){
+	public function getProfComments($prof_id, $status = NULL){
+		$data = array('prof_id' => $prof_id);
+
 		$sql = 'SELECT 
-					c.title, u.login, c.estimate, c.comment
+					c.title, c.estimate, c.comment, u.login
 				FROM 
 					users as u, comments as c
 				WHERE
 					u.id = c.user_id
 					AND c.prof_id=:prof_id';
 
-		if (isset($data['status'])){
+		if ($status){
 			$sql .= ' AND c.status=:status';
+			$data['status'] = $status;
+		}
+
+		$sth = $this->db->prepare($sql);
+		$sth->execute($data);
+
+		return $sth->fetchAll();
+	}
+
+	public function getComments($status = NULL){
+		$data = array();
+
+		$sql = 'SELECT 
+					c.id, c.status, c.title, c.estimate, c.comment, u.login, p.name, p.patronymic, p.surname
+				FROM 
+					users as u, comments as c, professors as p
+				WHERE
+					u.id = c.user_id
+					AND p.id = c.prof_id';
+
+		if ($status){
+			$sql .= ' AND c.status=:status';
+			$data['status'] = $status;
 		}
 
 		$sth = $this->db->prepare($sql);
