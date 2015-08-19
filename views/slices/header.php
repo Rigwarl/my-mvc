@@ -22,7 +22,7 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<?php html::nav(array(
-				'Professors' => 'professors'
+				'Professors' => '/professors'
 			), 'nav navbar-nav'); ?>
 
 			<?php
@@ -30,18 +30,18 @@
 				$nav = array();
 
 				if ($this->controller->is_user('admin')){
-					$nav['Admin panel'] = 'admin';
+					$nav['Admin panel'] = '/admin';
 				}
 
 				$nav += array(
 					$this->user['login'] => '#',
-					'Logout' => 'auth/logout'
+					'Logout' => '/auth/logout'
 				);
 
 			} else {
 				$nav = array(
-					'Login' => 'auth/login',
-					'Register' => 'auth/register'
+					'Login' => '/auth/login',
+					'Register' => '/auth/register'
 				);
 			}
 

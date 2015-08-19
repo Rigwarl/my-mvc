@@ -1,9 +1,9 @@
 <div class="container">
 	<?php html::nav(array(
-		'All'         => 'admin/comments',
-		'New'         => 'admin/comments/new',
-		'Approved'    => 'admin/comments/approved',
-		'Disapproved' => 'admin/comments/disapproved'
+		'All'         => '/admin/comments',
+		'New'         => '/admin/comments/new',
+		'Approved'    => '/admin/comments/approved',
+		'Disapproved' => '/admin/comments/disapproved'
 	), 'nav nav-pills'); ?>
 
 	<h1><?php echo $this->title; ?></h1>

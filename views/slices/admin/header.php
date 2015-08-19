@@ -22,14 +22,14 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<?php html::nav(array(
-				'Professors' => 'admin/professors',
-				'Comments'   => 'admin/comments'
+				'Professors' => '/admin/professors',
+				'Comments'   => '/admin/comments'
 			), 'nav navbar-nav'); ?>
 
 			<?php html::nav(array(
 				'Back to site' => '/',
 				$this->user['login'] => '#',
-				'Logout' => 'auth/logout'
+				'Logout' => '/auth/logout'
 			), 'nav navbar-nav navbar-right'); ?>
 		</div>
 	</nav>
