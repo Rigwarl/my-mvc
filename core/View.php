@@ -4,10 +4,10 @@ Class View {
 
 	public $user;
 	public $layout = 'default';
-	private $args = array();
 	public $title = 'mymvc';
 	public $errors = array();
 	public $msgs = array();
+	private $args = array();
 
 	public function render($view, $args = array()) {
 		$layout = '../views/layouts/' . $this->layout . '.php';
@@ -42,5 +42,9 @@ Class View {
 		extract($this->args);
 
 		require_once $file;
+	}
+
+	private function is_user($class){
+		return $this->controller->is_user($class);
 	}
 }

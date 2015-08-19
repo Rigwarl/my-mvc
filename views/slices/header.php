@@ -27,16 +27,25 @@
 
 			<?php
 			if ($this->user['id']) {
-				html::nav(array(
+				$nav = array();
+
+				if ($this->controller->is_user('admin')){
+					$nav['Admin panel'] = 'admin';
+				}
+
+				$nav += array(
 					$this->user['login'] => '#',
 					'Logout' => 'auth/logout'
-				), 'nav navbar-nav navbar-right');
+				);
+
 			} else {
-				html::nav(array(
+				$nav = array(
 					'Login' => 'auth/login',
 					'Register' => 'auth/register'
-				), 'nav navbar-nav navbar-right');
-			} 
+				);
+			}
+
+			html::nav($nav, 'nav navbar-nav navbar-right');
 			?>
 		</div>
 	</nav>

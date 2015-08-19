@@ -12,6 +12,7 @@ Class Controller {
 		$this->user = $users->user;
 		$this->view = new View;
 		$this->view->user = $this->user;
+		$this->view->controller = $this;
 	}
 
 	protected function loadModel($model){
@@ -25,7 +26,7 @@ Class Controller {
 		exit;
 	}
 
-	protected function is_user($class){
+	public function is_user($class){
 		if (is_array($class)){
 			foreach ($class as $item){
 				if ($this->user['class'] === $item){
