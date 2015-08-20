@@ -2,10 +2,31 @@
 
 Class Comments extends Admin{
 
-	public function index(){
-        $data['comments'] = $this->model->getComments();
+    // todo refactor, mb write router
+    public function index(){
+        $this->header('/admin/comments/all');
+    }
 
-        $this->view->title = 'All comments';
+    public function all(){
+        $this->showComments('All comments');
+    }
+
+    public function newest(){
+        $this->showComments('New comments', 'new');
+    }
+
+    public function approved(){
+        $this->showComments('Approved comments', 'approved');
+    }
+
+    public function disapproved(){
+        $this->showComments('Disapproved comments', 'disapproved');
+    }
+
+    private function showComments($title, $type = NULL){
+        $data['comments'] = $this->model->getComments($type);
+
+        $this->view->title = $title;
         $this->view->render('admin/comments/index', $data);
     }
 
