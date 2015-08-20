@@ -68,4 +68,8 @@ Class globals {
 	public static function is_post(){
 		return $_SERVER['REQUEST_METHOD'] === 'POST';
 	}
+
+	public static function server($value){
+		return self::get_from($value, $_SERVER);
+	}
 }
