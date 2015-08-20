@@ -6,7 +6,7 @@ $comments_sql = 'CREATE TABLE `comments` (
 					`id` int PRIMARY KEY AUTO_INCREMENT,
 					`prof_id` int NOT NULL,
 					`user_id` int NOT NULL,
-					`status` varchar(10) NOT NULL default "new",
+					`status` varchar(15) NOT NULL default "new",
 					`title` varchar(30) NOT NULL,
 					`estimate` int NOT NULL,
 					`comment` text,
