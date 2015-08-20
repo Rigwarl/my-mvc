@@ -15,37 +15,6 @@ Class Comments_Model extends Model{
 		'comment'  => 'required'
 	);
 
-	public function approve(){
-		// todo transaction
-		$comment_id = $this->save();
-
-		if ($comment_id){
-			// update prof rating only if comment saved
-			$comments = $this->getBy('prof_id', $this->data['prof_id']);
-
-			$rated = count($comments);
-			$points = 0;
-			
-			foreach ($comments as $comment){
-				$points += $comment['estimate'];
-			}
-
-			$rating = $points/$rated;
-
-			$this->table = 'professors';
-			$this->update($this->data['prof_id'], array(
-				'rated'  => $rated,
-				'rating' => $rating
-			));
-		}
-
-		return $comment_id;
-	}
-
-	public function disapprove(){
-
-	}
-
 	public function getProfComments($prof_id, $status = NULL){
 		$data = array('prof_id' => $prof_id);
 
@@ -54,8 +23,7 @@ Class Comments_Model extends Model{
 				FROM 
 					users as u, comments as c
 				WHERE
-					u.id = c.user_id
-					AND c.prof_id=:prof_id';
+					u.id = c.user_id AND c.prof_id=:prof_id';
 
 		if ($status){
 			$sql .= ' AND c.status=:status';
@@ -76,8 +44,7 @@ Class Comments_Model extends Model{
 				FROM 
 					users as u, comments as c, professors as p
 				WHERE
-					u.id = c.user_id
-					AND p.id = c.prof_id';
+					u.id = c.user_id AND p.id = c.prof_id';
 
 		if ($status){
 			$sql .= ' AND c.status=:status';
@@ -88,5 +55,40 @@ Class Comments_Model extends Model{
 		$sth->execute($data);
 
 		return $sth->fetchAll();
+	}
+
+	public function approve($id, $prof_id){
+		$result = false;
+
+		$updated = $this->update($id, array(
+			'status' => 'approved'
+		));
+
+		if ($updated){
+			$sql = 'UPDATE
+						professors,
+					(
+						SELECT 
+							AVG(estimate) as avg, COUNT(*) as count
+						FROM 
+							comments
+						WHERE
+							prof_id=:prof_id AND status="approved"
+					) as result
+
+					SET
+						rating=result.avg, rated=result.count
+					WHERE 
+						id=:prof_id';
+
+			$sth = $this->db->prepare($sql);
+			$result = $sth->execute(array('prof_id' => $prof_id));
+		}
+
+		return $result;
+	}
+
+	public function disapprove(){
+
 	}
 }
