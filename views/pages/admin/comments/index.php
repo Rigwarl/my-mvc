@@ -21,11 +21,11 @@
 		<p>Comment: <strong><?php echo $comment['comment']; ?></strong></p>
 
 		<?php if ($comment['status'] !== 'approved'): ?>
-			<a href="/admin/comments/approve/<?php echo $comment['id']; ?>" class="btn btn-success">Approve</a>
+			<a href="/admin/comments/change/<?php echo $comment['id']; ?>/approve" class="btn btn-success">Approve</a>
 		<?php endif; ?>
 
 		<?php if($comment['status'] !== 'disapproved'): ?>
-			<a href="/admin/comments/disapprove/<?php echo $comment['id']; ?>" class="btn btn-danger">Disapprove</a>
+			<a href="/admin/comments/change/<?php echo $comment['id']; ?>/disapprove" class="btn btn-danger">Disapprove</a>
 		<?php endif; ?>
 
 		<a href="/admin/comments/edit/<?php echo $comment['id']; ?>" class="btn btn-primary">Edit</a>

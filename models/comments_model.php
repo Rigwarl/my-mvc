@@ -51,12 +51,10 @@ Class Comments_Model extends Model{
 		return $sth->fetchAll();
 	}
 
-	public function approve($id, $prof_id){
+	public function changeStatus($id, $prof_id, $status){
 		$result = false;
 
-		$updated = $this->update($id, array(
-			'status' => 'approved'
-		));
+		$updated = $this->update($id, array('status' => $status));
 
 		if ($updated){
 			$sql = 'UPDATE professors,
@@ -72,9 +70,5 @@ Class Comments_Model extends Model{
 		}
 
 		return $result;
-	}
-
-	public function disapprove(){
-
 	}
 }
