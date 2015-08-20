@@ -3,7 +3,7 @@
 Class Bootstrap {
 
 	// todo router
-	// todo remove user model autoload
+	// class autoload
 	// add model table autoload
 
 	private $controller;
@@ -17,7 +17,8 @@ Class Bootstrap {
 
 		$controller = isset($url[0]) ? $url[0] : 'home';
 		$action = isset($url[1]) ? $url[1] : 'index';
-		$arg = isset($url[2]) ? $url[2] : null;	
+
+		$arg = isset($url[2]) ? array_slice($url, 2) : null;	
 
 		$this->loadUser();
 		$this->loadController($controller);
@@ -69,6 +70,10 @@ Class Bootstrap {
 
 	private function loadMethod($action, $arg){
 		if (method_exists($this->controller, $action)) {
+			if (count($arg) === 1) {
+				$arg = $arg[0];
+			}
+
 			$this->controller->$action($arg);
 		} else {
 			throw new Exception("404");
