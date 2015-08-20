@@ -18,12 +18,9 @@ Class Comments_Model extends Model{
 	public function getProfComments($prof_id, $status = NULL){
 		$data = array('prof_id' => $prof_id);
 
-		$sql = 'SELECT 
-					c.title, c.estimate, c.comment, u.login
-				FROM 
-					users as u, comments as c
-				WHERE
-					u.id = c.user_id AND c.prof_id=:prof_id';
+		$sql = 'SELECT c.title, c.estimate, c.comment, u.login
+				FROM users as u, comments as c
+				WHERE u.id = c.user_id AND c.prof_id=:prof_id';
 
 		if ($status){
 			$sql .= ' AND c.status=:status';
@@ -39,12 +36,9 @@ Class Comments_Model extends Model{
 	public function getComments($status = NULL){
 		$data = array();
 
-		$sql = 'SELECT 
-					c.id, c.status, c.title, c.estimate, c.comment, u.login, p.name, p.patronymic, p.surname
-				FROM 
-					users as u, comments as c, professors as p
-				WHERE
-					u.id = c.user_id AND p.id = c.prof_id';
+		$sql = 'SELECT c.id, c.status, c.title, c.estimate, c.comment, u.login, p.name, p.patronymic, p.surname
+				FROM users as u, comments as c, professors as p
+				WHERE u.id = c.user_id AND p.id = c.prof_id';
 
 		if ($status){
 			$sql .= ' AND c.status=:status';
@@ -65,21 +59,13 @@ Class Comments_Model extends Model{
 		));
 
 		if ($updated){
-			$sql = 'UPDATE
-						professors,
-					(
-						SELECT 
-							AVG(estimate) as avg, COUNT(*) as count
-						FROM 
-							comments
-						WHERE
-							prof_id=:prof_id AND status="approved"
-					) as result
-
-					SET
-						rating=result.avg, rated=result.count
-					WHERE 
-						id=:prof_id';
+			$sql = 'UPDATE professors,
+					(	SELECT AVG(estimate) as avg, COUNT(*) as count
+						FROM comments
+						WHERE prof_id=:prof_id AND status="approved"
+					) 	as result
+					SET rating=result.avg, rated=result.count
+					WHERE id=:prof_id';
 
 			$sth = $this->db->prepare($sql);
 			$result = $sth->execute(array('prof_id' => $prof_id));
