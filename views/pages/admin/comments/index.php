@@ -4,7 +4,11 @@
 		'New'         => '/admin/comments/new',
 		'Approved'    => '/admin/comments/approved',
 		'Disapproved' => '/admin/comments/disapproved'
-	), 'nav nav-pills'); ?>
+	), 'nav nav-pills mb15'); ?>
+
+	<?php if ($this->sms('not_changed')): ?>
+		<p class='alert alert-danger'>Sorry, something went wrong. Please try later...</p>
+	<?php endif; ?>
 
 	<h1><?php echo $this->title; ?></h1>
 
