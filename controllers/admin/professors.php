@@ -24,9 +24,7 @@ Class Professors extends Admin{
 			// save prof to var, we will show it on get method
 			$data = $this->model->getId($id);
 
-			if (!$data) {
-				throw new exception('404');
-			}
+			if (!$data) throw new exception('404');
 
 			// save prof to new var we will use it and show if update on post fail
 			$data_old = $data;
