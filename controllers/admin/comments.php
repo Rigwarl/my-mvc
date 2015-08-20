@@ -54,4 +54,44 @@ Class Comments extends Admin{
         $link = globals::server('HTTP_REFERER') ?: '/admin/comments/all';
 		$this->header($link);
 	}
+
+    public function edit($id){
+        // todo backlink
+        // update prof avg
+        $comment = $this->model->getId($id);
+        $errors = array();
+
+        if (!$comment) {
+            throw new Exception('404');
+        }
+
+        if (globals::is_post()) {
+            $post = globals::post(array(
+                'title',
+                'estimate',
+                'comment'
+            ));
+
+            $comment = array_merge($comment, $post);
+            $comment['estimate'] = (int) $comment['estimate'];
+
+            $this->model->load($comment);
+            $this->model->validate();
+
+            if ($this->model->is_valid) {
+                $saved = $this->model->update($id);
+
+                if ($saved) {
+                    $this->view->msgs['saved'] = true;
+                } else {
+                    $errors['save'] = true;
+                }
+            }
+        }
+
+        $comment['id'] = $id;
+        $this->view->title = 'Editing comment';
+        $this->view->errors = array_merge($errors, $this->model->errors);
+        $this->view->render('admin/comments/edit', $comment);
+    }
 }
