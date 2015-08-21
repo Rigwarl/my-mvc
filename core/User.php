@@ -19,7 +19,9 @@ class User {
 		global $url;
 		$links = array('lastlink' => '/' . $url);
 
-		if ('/' . $url !== $this->data['lastlink']) {
+		if (!$this->data['backlink']) {
+			$links['backlink'] = '/' . $url;
+		} elseif ('/' . $url !== $this->data['lastlink']) {
 			$links['backlink'] = $this->data['lastlink'];
 		}
 
