@@ -18,12 +18,13 @@ Class Bootstrap {
 		$controller = isset($url[0]) ? $url[0] : 'home';
 		$action = isset($url[1]) ? $url[1] : 'index';
 
-		$arg = isset($url[2]) ? array_slice($url, 2) : null;	
+		$arg1 = isset($url[2]) ? $url[2] : NULL;	
+		$arg2 = isset($url[3]) ? $url[3] : NULL;
 
 		$this->loadUser();
 		$this->loadController($controller);
 		$this->loadModel($controller);
-		$this->loadMethod($action, $arg);
+		$this->loadMethod($action, $arg1, $arg2);
 	}
 
 	private function admin_check(&$url){
@@ -68,13 +69,9 @@ Class Bootstrap {
 		} 
 	}
 
-	private function loadMethod($action, $arg){
+	private function loadMethod($action, $arg1, $arg2){
 		if (method_exists($this->controller, $action)) {
-			if (count($arg) === 1) {
-				$arg = $arg[0];
-			}
-
-			$this->controller->$action($arg);
+			$this->controller->$action($arg1, $arg2);
 		} else {
 			throw new Exception("404");
 		}

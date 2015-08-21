@@ -30,10 +30,7 @@ Class Comments extends Admin{
         $this->view->render('admin/comments/index', $data);
     }
 
-    public function change($data){
-        $id = $data[0];
-        $status = $data[1];
-
+    public function change($id, $status){
         // status can be changed only to this states
         if ($status !== 'approve' && $status !== 'disapprove') {
             throw new Exception('404');
