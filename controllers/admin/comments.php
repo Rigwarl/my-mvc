@@ -47,8 +47,7 @@ Class Comments extends Admin{
             globals::set_session('not_changed');
         }
 
-        $link = globals::server('HTTP_REFERER') ?: '/admin/comments/all';
-		$this->header($link);
+		$this->header($this->user->get('backlink'));
 	}
 
     public function edit($id){
