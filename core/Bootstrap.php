@@ -11,6 +11,7 @@ Class Bootstrap {
 	private $is_admin = false;
 
 	function __construct($url) {
+		$url = $url ?: 'home';
 		$url = explode('/', $url);
 
 		$this->admin_check($url);

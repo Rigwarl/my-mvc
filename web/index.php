@@ -13,6 +13,6 @@ require_once '../libs/validator.php';
 require_once '../libs/globals.php';
 require_once '../libs/html.php';
 
-$url = rtrim(globals::get('url'), '/') ?: 'home';
+$url = rtrim(globals::get('url'), '/');
 
 $app = new Bootstrap($url);
