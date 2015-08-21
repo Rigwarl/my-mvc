@@ -22,7 +22,7 @@ Class Comments_Model extends Model{
 		$sql = "SELECT c.title, c.estimate, c.comment, u.login
 				FROM users as u, comments as c
 				WHERE u.id = c.user_id AND c.prof_id=:prof_id$status_sql
-				ORDER BY c.id ASC";
+				ORDER BY c.id DESC";
 
 		$sth = $this->db->prepare($sql);
 		$sth->execute($data);
