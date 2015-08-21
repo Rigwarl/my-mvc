@@ -49,25 +49,4 @@ Class Comments_Model extends Model{
 
 		return $sth->fetchAll();
 	}
-
-	public function changeStatus($id, $prof_id, $status){
-		$result = false;
-
-		$updated = $this->update($id, array('status' => $status));
-
-		if ($updated){
-			$sql = 'UPDATE professors,
-					(	SELECT AVG(estimate) as avg, COUNT(*) as count
-						FROM comments
-						WHERE prof_id=:prof_id AND status="approved"
-					) 	as result
-					SET rating=result.avg, rated=result.count
-					WHERE id=:prof_id';
-
-			$sth = $this->db->prepare($sql);
-			$result = $sth->execute(array('prof_id' => $prof_id));
-		}
-
-		return $result;
-	}
 }

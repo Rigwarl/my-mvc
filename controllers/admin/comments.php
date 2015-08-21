@@ -41,9 +41,12 @@ Class Comments extends Admin{
             throw new Exception('404');
         }
 
-		$changed = $this->model->changeStatus($id, $comment['prof_id'], $status . 'd');
+        $updated = $this->model->update($id, array('status' => $status . 'd'));
 
-		if (!$changed) {
+        $professors_model = $this->loadModel('professors');
+		$recalculated = $professors_model->recalc($comment['prof_id']);
+
+		if (!$updated || !$recalculated) {
             globals::set_session('not_changed');
         }
 
@@ -51,7 +54,6 @@ Class Comments extends Admin{
 	}
 
     public function edit($id){
-        // update prof avg
         $comment = $this->model->getId($id);
         $errors = array();
 
@@ -75,7 +77,10 @@ Class Comments extends Admin{
             if ($this->model->is_valid) {
                 $saved = $this->model->update($id);
 
-                if ($saved) {
+                $professors_model = $this->loadModel('professors');
+                $recalc = $professors_model->recalc($comment['prof_id']);
+
+                if ($saved && $recalc) {
                     $this->view->msgs['saved'] = true;
                 } else {
                     $errors['save'] = true;
