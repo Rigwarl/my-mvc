@@ -2,7 +2,6 @@
 
 Class Comments extends Admin{
 
-    // todo refactor, mb write router
     public function index(){
         $this->header('/admin/comments/all');
     }
@@ -53,7 +52,6 @@ Class Comments extends Admin{
 	}
 
     public function edit($id){
-        // todo backlink
         // update prof avg
         $comment = $this->model->getId($id);
         $errors = array();
