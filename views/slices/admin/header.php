@@ -28,7 +28,7 @@
 
 			<?php html::nav(array(
 				'Back to site' => '/',
-				$this->user['login'] => '#',
+				$this->user->get('login') => '#',
 				'Logout' => '/auth/logout'
 			), 'nav navbar-nav navbar-right'); ?>
 		</div>

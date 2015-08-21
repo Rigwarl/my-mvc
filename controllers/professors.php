@@ -55,7 +55,7 @@ Class Professors extends Controller{
 		$comments_model = $this->loadModel('comments');
 		$last_comment = $comments_model->getOne(array(
 			'prof_id' => $id,
-			'user_id' => $this->user['id']
+			'user_id' => $this->user->get('id')
 		));
 
 		if ($last_comment){
@@ -77,14 +77,13 @@ Class Professors extends Controller{
 		$errors = array();
 
 		if (globals::is_post()) {
-			// todo show message if saved and display comments
 			$comment = globals::post(array(
 				'title',
 				'estimate',
 				'comment'
 			));
 			$comment['prof_id'] = $id;
-			$comment['user_id'] = $this->user['id'];
+			$comment['user_id'] = $this->user->get('id');
 			$comment['estimate'] = (int) $comment['estimate'];
 
 			$comments_model->load($comment);

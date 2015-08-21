@@ -2,16 +2,6 @@
 
 Class Users_Model extends Model{
 
-	public $user;
-
-	function __construct(){
-		parent::__construct();
-		$this->table = 'users';
-
-		session_start();
-		$this->user = globals::session(array('id', 'login', 'class'));
-	}
-
 	// todo some check for unallowable symbols
 	protected $rules = array(
 		'login'    => 'required|min_len:4',

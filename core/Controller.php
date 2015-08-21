@@ -3,22 +3,19 @@
 Class Controller {
 
 	public $model;
-	protected $users;
 	protected $user;
 	protected $view;
 
-	function __construct($users) {
-		$this->users = $users;
-		$this->user = $users->user;
+	function __construct($user) {
+		$this->user = $user;
 		$this->view = new View;
 		$this->view->user = $this->user;
-		$this->view->controller = $this;
 	}
 
 	protected function loadModel($model){
 		$model_name = $model . '_model';
 		require_once '../models/' . $model_name . '.php';
-		return new $model_name();
+		return new $model_name($model);
 	}
 
 	protected function header($url){
@@ -26,27 +23,12 @@ Class Controller {
 		exit;
 	}
 
-	public function is_user($class){
-		if (is_array($class)){
-			foreach ($class as $item){
-				if ($this->user['class'] === $item){
-					return true;
-				}
-			}
-		} elseif ($this->user['class'] === $class){
-			return true;
-		}
-
-		return false;
-	}
-
 	protected function requireLogin(){
 		global $url;
 
-		if (!$this->user['id']){
+		if (!$this->user->get('id')) {
 			globals::set_session(array(
-				'require_login' => true,
-				'backlink' => $url
+				'require_login' => true
 			));
 
 			$this->header('/auth/login');

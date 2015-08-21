@@ -26,15 +26,15 @@
 			), 'nav navbar-nav'); ?>
 
 			<?php
-			if ($this->user['id']) {
+			if ($this->user->get('id')) {
 				$nav = array();
 
-				if ($this->controller->is_user('admin')){
+				if ($this->user->is('admin')){
 					$nav['Admin panel'] = '/admin';
 				}
 
 				$nav += array(
-					$this->user['login'] => '#',
+					$this->user->get('login') => '#',
 					'Logout' => '/auth/logout'
 				);
 

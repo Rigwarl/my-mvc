@@ -5,7 +5,7 @@ Class Admin extends Controller{
 	function __construct($users) {
 		parent::__construct($users);
 
-		if (!$this->is_user('admin')) {
+		if (!$this->user->is('admin')) {
 			throw new Exception('403');
 		}
 

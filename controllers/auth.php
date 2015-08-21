@@ -2,14 +2,19 @@
 
 Class Auth extends Controller{
 
+	function __construct($user){
+		parent::__construct($user);
+		$this->model = $this->loadModel('users');
+	}
+
 	public function logout(){
-		$this->users->logout();
+		$this->model->logout();
 
 		$this->header('/auth/login');
 	}
 
 	public function login(){
-		if ($this->user['id']){
+		if ($this->user->get('id')){
 			$this->header('/');
 		}
 
@@ -24,28 +29,26 @@ Class Auth extends Controller{
 				'password'
 			));
 
-			$this->users->load($data, 'login');
-			$this->users->validate('login');
+			$this->model->load($data, 'login');
+			$this->model->validate('login');
 
-			if ($this->users->is_valid) {
-				$user = $this->users->login();
+			if ($this->model->is_valid) {
+				$user = $this->model->login();
 
 				if ($user){
-					$link = '/' . globals::extract_session('backlink');
-
-					$this->header($link);
+					$this->header($this->user->get('backlink'));
 				}
 			}
 		}
 
 		$this->view->title = 'Log in';
-		$this->view->errors = $this->users->errors;
+		$this->view->errors = $this->model->errors;
 		$this->view->render('auth/login', $data);
 	}
 
 	public function register(){
 		//todo capcha and encrypt
-		if ($this->user['id']){
+		if ($this->user->get('id')){
 			$this->header('/');
 		}
 
@@ -70,11 +73,11 @@ Class Auth extends Controller{
 				'password2' => 'required|equal:password'
 			));
 
-			$this->users->load($data);
-			$this->users->validate();
+			$this->model->load($data);
+			$this->model->validate();
 
-			if (!$errors && $this->users->is_valid){
-				$user_id = $this->users->register();
+			if (!$errors && $this->model->is_valid){
+				$user_id = $this->model->register();
 
 				if ($user_id) {
 					$this->header('/auth/login');
@@ -83,7 +86,7 @@ Class Auth extends Controller{
 		}
 
 		$this->view->title = 'Registration';
-		$this->view->errors = array_merge($errors, $this->users->errors);
+		$this->view->errors = array_merge($errors, $this->model->errors);
 		$this->view->render('auth/registration', $data);
 	}
 }

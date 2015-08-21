@@ -1,11 +1,6 @@
 <?php
 
 Class Comments_Model extends Model{
-	
-	function __construct(){
-		parent::__construct();
-		$this->table = 'comments';
-	}
 
 	protected $rules = array(
 		'prof_id'  => 'required',

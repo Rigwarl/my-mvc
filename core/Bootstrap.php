@@ -4,10 +4,10 @@ Class Bootstrap {
 
 	// todo router
 	// class autoload
-	// add model table autoload
 
+	private $name;
 	private $controller;
-	private $users;
+	private $user;
 	private $is_admin = false;
 
 	function __construct($url) {
@@ -22,9 +22,10 @@ Class Bootstrap {
 		$arg1 = isset($url[2]) ? $url[2] : NULL;	
 		$arg2 = isset($url[3]) ? $url[3] : NULL;
 
+		$this->name = $controller;
+
 		$this->loadUser();
 		$this->loadController($controller);
-		$this->loadModel($controller);
 		$this->loadMethod($action, $arg1, $arg2);
 	}
 
@@ -40,8 +41,8 @@ Class Bootstrap {
 	}
 
 	private function loadUser(){
-		require_once '../models/users_model.php';
-		$this->users = new Users_Model();
+		require_once '../core/User.php';
+		$this->user = new User();
 	}
 
 	private function loadController($controller){
@@ -54,24 +55,28 @@ Class Bootstrap {
 
 		if (file_exists($controller_file)) {
 			require_once $controller_file;
-			$this->controller = new $controller($this->users);
+			$this->controller = new $controller($this->user);
 		} else {
 			throw new Exception("404");
 		}
 	}
 
-	private function loadModel($model){
-		$model_name = $model . '_model';
+	private function loadModel(){
+		$model_name = $this->name . '_model';
 		$model_file = '../models/' . $model_name . '.php';
 
 		if (file_exists($model_file)) {
 			require_once $model_file;
-			$this->controller->model = new $model_name();
+			$this->controller->model = new $model_name($this->name);
 		} 
 	}
 
 	private function loadMethod($action, $arg1, $arg2){
 		if (method_exists($this->controller, $action)) {
+			// page exists, update links and load model
+			$this->user->updateLinks();
+			$this->loadModel();
+
 			$this->controller->$action($arg1, $arg2);
 		} else {
 			throw new Exception("404");

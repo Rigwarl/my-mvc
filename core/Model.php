@@ -9,7 +9,7 @@ Class Model {
 	public $errors = array();
 	public $is_valid = false;
 
-	function __construct(){
+	function __construct($table){
 		if (!self::$singleDb) {
 			self::$singleDb = new PDO(
 				DB_DRIVE . ':host=' .
@@ -24,6 +24,7 @@ Class Model {
 			}
 		}
 		$this->db = self::$singleDb;
+		$this->table = $table;
 	}
 
 	public function load($data, $name = ''){
