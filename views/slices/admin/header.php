@@ -23,7 +23,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<?php html::nav(array(
 				'Professors' => '/admin/professors',
-				'Comments'   => '/admin/comments/index'
+				'Comments'   => '/admin/comments'
 			), 'nav navbar-nav'); ?>
 
 			<?php html::nav(array(

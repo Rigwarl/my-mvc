@@ -3,6 +3,10 @@
 Class Comments extends Admin{
 
     public function index(){
+        $this->header('/admin/comments/all');
+    }
+
+    public function all(){
         $this->showComments('All comments');
     }
 

@@ -1,6 +1,6 @@
 <div class="container">
 	<?php html::nav(array(
-		'All'         => '/admin/comments/index',
+		'All'         => '/admin/comments/all',
 		'New'         => '/admin/comments/newest',
 		'Approved'    => '/admin/comments/approved',
 		'Disapproved' => '/admin/comments/disapproved'
