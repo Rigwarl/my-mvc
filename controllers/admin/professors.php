@@ -9,6 +9,26 @@ Class Professors extends Admin{
 		$this->view->render('admin/professors/index', $data);
 	}
 
+	public function comments($id, $status){
+		// status can be in this states or NULL
+		if ($status !== 'all' && $status !== 'approved' && $status !== 'disapproved' && $status !== 'newest') {
+		    throw new Exception('404');
+		}
+
+		$professor = $this->model->getId($id);
+
+		if (!$professor){
+			throw new Exception('404');
+		}
+
+		$status = ($status === 'all') ? NULL : $status;
+		$comments_model = $this->loadModel('comments');
+		$professor['comments'] = $comments_model->getProfComments($id, $status);
+
+		$this->view->title = 'Comments about professor '. $professor['name'] . ' ' . $professor['patronymic'] . ' ' . $professor['surname'];
+		$this->view->render('admin/professors/comments', $professor);
+	}
+
 	public function edit($id){
 		$data = array(
 			'name' => '',
@@ -24,7 +44,10 @@ Class Professors extends Admin{
 			// save prof to var, we will show it on get method
 			$data = $this->model->getId($id);
 
-			if (!$data) throw new exception('404');
+			if (!$data){
+				throw new exception('404');
+			}
+				
 
 			// save prof to new var we will use it and show if update on post fail
 			$data_old = $data;
