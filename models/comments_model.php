@@ -19,7 +19,7 @@ Class Comments_Model extends Model{
 			$data['status'] = $status;
 		}
 
-		$sql = "SELECT c.title, c.estimate, c.comment, c.status, u.login
+		$sql = "SELECT c.id, c.title, c.estimate, c.comment, c.status, u.login
 				FROM users as u, comments as c
 				WHERE u.id = c.user_id AND c.prof_id=:prof_id$status_sql
 				ORDER BY c.id DESC";
