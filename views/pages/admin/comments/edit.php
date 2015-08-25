@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="clearfix">
 		<h1 class="pull-left"><?php echo $this->title; ?></h1>
-		<a href="<?php echo $this->user->get('backlink'); ?>" class="btn btn-primary pull-right">← back to all comments</a>
+		<a href="<?php echo $this->user->get('backlink'); ?>" class="btn btn-primary pull-right">← back to comments</a>
 	</div>
 		
 	  <?php if ($this->msg('saved')): ?>
