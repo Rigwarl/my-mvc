@@ -24,8 +24,6 @@ Class Controller {
 	}
 
 	protected function requireLogin(){
-		global $url;
-
 		if (!$this->user->get('id')) {
 			globals::set_session(array(
 				'require_login' => true
