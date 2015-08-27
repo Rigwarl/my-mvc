@@ -63,6 +63,9 @@
       <input type="text" name="about" class="form-control" id="about" placeholder="About" value="<?php echo $about ?>">
     </div>
     <button type="submit" class="btn btn-success">Save</button>
-    <a href="/admin/professors/comments/<?php echo $id; ?>/all" class="btn btn-primary pull-right">Comments about this professor</a>
+    
+    <?php if($id): ?>
+      <a href="/admin/professors/comments/<?php echo $id; ?>/all" class="btn btn-primary pull-right">Comments about this professor</a>
+    <?php endif; ?>
   </form>
 </div>
