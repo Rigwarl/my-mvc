@@ -6,8 +6,7 @@ Class Migration extends Model{
 	private $version;
 
 	function __construct(){
-		parent::__construct();
-		$this->table = 'options';
+		parent::__construct('options');
 
 		// check if table exists
 		// todo change it to direct check if table exists, now it will catch any error
@@ -30,7 +29,7 @@ Class Migration extends Model{
 		if ($migration){
 			require_once $migration;
 		}
-		die('migration done');
+		exit('migration done');
 	}
 
 	private function migrated($condition){
