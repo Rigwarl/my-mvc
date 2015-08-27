@@ -43,8 +43,4 @@ Class View {
 
 		require_once $file;
 	}
-
-	private function is_user($class){
-		return $this->controller->is_user($class);
-	}
 }
