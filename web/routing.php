@@ -1,5 +1,7 @@
 <?php
 
+// use it if run on php server
+
 $url = $_SERVER["REQUEST_URI"];
 
 if(file_exists($_SERVER["DOCUMENT_ROOT"] . $url)){
