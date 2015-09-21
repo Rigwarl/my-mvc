@@ -32,13 +32,13 @@ Class Comments extends Admin{
     public function change($id, $status){
         // status can be changed only to this states
         if ($status !== 'approve' && $status !== 'disapprove') {
-            throw new Exception('404');
+            $this->error->show('404');
         }
 
 		$comment = $this->model->getId($id);
 
 		if (!$comment) {
-            throw new Exception('404');
+            $this->error->show('404');
         }
 
         $updated = $this->model->update($id, array('status' => $status . 'd'));
@@ -58,7 +58,7 @@ Class Comments extends Admin{
         $errors = array();
 
         if (!$comment) {
-            throw new Exception('404');
+            $this->error->show('404');
         }
 
         if (globals::is_post()) {

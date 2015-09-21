@@ -6,7 +6,7 @@ Class Admin extends Controller{
 		parent::__construct($users, $view, $error);
 
 		if (!$this->user->is('admin')) {
-			throw new Exception('403');
+			$this->error->show('403');
 		}
 
 		$this->view->layout = 'admin';

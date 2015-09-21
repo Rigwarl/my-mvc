@@ -16,7 +16,9 @@ Class Professors extends Controller{
 
 	public function show($id){
 		$data = $this->model->getID($id);
-		if (!$data)	throw new Exception('404');
+		if (!$data)	{
+			$this->error->show('404');
+		}
 
 		$comments_model = $this->loadModel('comments');
 		$data['comments'] = $comments_model->getProfComments($id, 'approved');
@@ -49,7 +51,9 @@ Class Professors extends Controller{
 		$this->requireLogin();
 
 		$professor = $this->model->getID($id);
-		if (!$professor) throw new Exception('404');
+		if (!$professor) {
+			$this->error->show('404');
+		}
 
 		// check last comment date
 		$comments_model = $this->loadModel('comments');

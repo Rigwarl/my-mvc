@@ -12,13 +12,13 @@ Class Professors extends Admin{
 	public function comments($id, $status){
 		// status can be in this states or NULL
 		if ($status !== 'all' && $status !== 'approved' && $status !== 'disapproved' && $status !== 'newest') {
-		    throw new Exception('404');
+		    $this->error->show('404');
 		}
 
 		$professor = $this->model->getId($id);
 
 		if (!$professor){
-			throw new Exception('404');
+			$this->error->show('404');
 		}
 
 		$status = ($status === 'all') ? NULL : $status;
@@ -45,7 +45,7 @@ Class Professors extends Admin{
 			$data = $this->model->getId($id);
 
 			if (!$data){
-				throw new exception('404');
+				$this->error->show('404');
 			}
 				
 

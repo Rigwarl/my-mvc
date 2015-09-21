@@ -76,7 +76,7 @@ Class Bootstrap {
 
 			$this->controller->$action($arg1, $arg2);
 		} else {
-			throw new Exception("404");
+			$this->error->show('404');
 		}
 	}
 }
