@@ -56,7 +56,6 @@ Class Professors extends Admin{
 		}
 
 		if (globals::is_post()){
-			//todo date format
 			$data = globals::post(array(
 				'name',
 				'patronymic',
