@@ -6,10 +6,10 @@ Class Controller {
 	protected $user;
 	protected $view;
 
-	function __construct($user) {
+	function __construct($user, $view, $error) {
 		$this->user = $user;
-		$this->view = new View;
-		$this->view->user = $this->user;
+		$this->view = $view;
+		$this->error = $error;
 	}
 
 	protected function loadModel($model){

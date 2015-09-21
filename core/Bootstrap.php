@@ -5,16 +5,17 @@ Class Bootstrap {
 	// todo router
 	// class autoload
 
-	private $name;
-	private $controller;
 	private $user;
+	private $view;
+	private $error;
+	private $controller;
 	private $is_admin = false;
 
 	function __construct($url) {
 		$url = $url ?: 'home';
 		$url = explode('/', $url);
 
-		$this->admin_check($url);
+		$this->adminCheck($url);
 
 		$controller = isset($url[0]) ? $url[0] : 'home';
 		$action = isset($url[1]) ? $url[1] : 'index';
@@ -22,14 +23,16 @@ Class Bootstrap {
 		$arg1 = isset($url[2]) ? $url[2] : NULL;	
 		$arg2 = isset($url[3]) ? $url[3] : NULL;
 
-		$this->name = $controller;
+		$this->user = new User();
+		$this->view = new View($this->user);
+		$this->error = new Error($this->view);
 
-		$this->loadUser();
 		$this->loadController($controller);
+		$this->loadModel($controller);
 		$this->loadMethod($action, $arg1, $arg2);
 	}
 
-	private function admin_check(&$url){
+	private function adminCheck(&$url){
 		if ($url[0] === 'admin'){
 			if (isset($url[1]) && $url[1] === 'migrate'){
 				require_once 'Migration.php';
@@ -38,11 +41,6 @@ Class Bootstrap {
 			array_shift($url);
 			$this->is_admin = true;
 		}
-	}
-
-	private function loadUser(){
-		require_once '../core/User.php';
-		$this->user = new User();
 	}
 
 	private function loadController($controller){
@@ -55,27 +53,26 @@ Class Bootstrap {
 
 		if (file_exists($controller_file)) {
 			require_once $controller_file;
-			$this->controller = new $controller($this->user);
+			$this->controller = new $controller($this->user, $this->view, $this->error);
 		} else {
-			throw new Exception("404");
+			$this->error->show('404');
 		}
 	}
 
-	private function loadModel(){
-		$model_name = $this->name . '_model';
+	private function loadModel($controller){
+		$model_name = $controller . '_model';
 		$model_file = '../models/' . $model_name . '.php';
 
 		if (file_exists($model_file)) {
 			require_once $model_file;
-			$this->controller->model = new $model_name($this->name);
+			$this->controller->model = new $model_name($controller);
 		} 
 	}
 
 	private function loadMethod($action, $arg1, $arg2){
 		if (method_exists($this->controller, $action)) {
-			// page exists, update links and load model
+			// page exists, update links and load action
 			$this->user->updateLinks();
-			$this->loadModel();
 
 			$this->controller->$action($arg1, $arg2);
 		} else {

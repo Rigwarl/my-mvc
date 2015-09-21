@@ -9,6 +9,10 @@ Class View {
 	public $msgs = array();
 	private $args = array();
 
+	function __construct($user) {
+		$this->user = $user;
+	}
+
 	public function render($view, $args = array()) {
 		$layout = '../views/layouts/' . $this->layout . '.php';
 		$this->args = $args;

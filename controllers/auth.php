@@ -2,8 +2,8 @@
 
 Class Auth extends Controller{
 
-	function __construct($user){
-		parent::__construct($user);
+	function __construct($users, $view, $error) {
+		parent::__construct($users, $view, $error);
 		$this->model = $this->loadModel('users');
 	}
 
