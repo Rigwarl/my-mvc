@@ -47,11 +47,10 @@ Class Professors extends Admin{
 			if (!$data){
 				$this->error->show('404');
 			}
-				
 
 			// save prof to new var we will use it and show if update on post fail
 			$data_old = $data;
-			
+
 			$title = 'Professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
 		}
 
@@ -73,6 +72,7 @@ Class Professors extends Admin{
 					if ($this->model->update($id)) {
 						// if we updated him show success msg
 						$this->view->msgs['saved'] = true;
+						$title = 'Professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
 					} else {
 						//if not we show old data
 						$errors['save'] = true;
