@@ -3,11 +3,17 @@
 Class Comments_Model extends Model{
 
 	protected $rules = array(
-		'prof_id'  => 'required',
-		'user_id'  => 'required',
-		'title'    => 'required',
-		'estimate' => 'required|int|min:1|max:10',
-		'comment'  => 'required'
+		'prof_id'      => 'required',
+		'user_id'      => 'required',
+		'title'        => 'required',
+		'year'         => 'required|date:Y',
+		'clarity'      => 'required|int|min:1|max:5',
+		'knowledge'    => 'required|int|min:1|max:5',
+		'interest'     => 'required|int|min:1|max:5',
+		'helpfulness'  => 'required|int|min:1|max:5',
+		'exactingness' => 'required|int|min:1|max:5',
+		'hardness'     => 'required|int|min:1|max:5',
+		'comment'      => 'required'
 	);
 
 	public function getProfComments($prof_id, $status = NULL){
