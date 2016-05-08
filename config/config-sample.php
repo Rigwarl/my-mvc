@@ -2,8 +2,7 @@
 
 date_default_timezone_set('Europe/Moscow');
 
-// will be main preference, for now only toggle PDO errors
-define('DEVELOP', true);
+define('DEVELOP', false);
 
 define('DB_DRIVE', 'mysql');
 define('DB_HOST', '127.0.0.1');

@@ -1,7 +1,6 @@
-<?php 
+<?php
 
 Class Bootstrap {
-
 	// todo router
 	// class autoload
 
@@ -20,7 +19,7 @@ Class Bootstrap {
 		$controller = isset($url[0]) ? $url[0] : 'home';
 		$action = isset($url[1]) ? $url[1] : 'index';
 
-		$arg1 = isset($url[2]) ? $url[2] : NULL;	
+		$arg1 = isset($url[2]) ? $url[2] : NULL;
 		$arg2 = isset($url[3]) ? $url[3] : NULL;
 
 		$this->user = new User();
@@ -34,7 +33,7 @@ Class Bootstrap {
 
 	private function adminCheck(&$url){
 		if ($url[0] === 'admin'){
-			if (isset($url[1]) && $url[1] === 'migrate'){
+			if (isset($url[1]) && $url[1] === 'migrate' && DEVELOP){
 				require_once 'Migration.php';
 				new Migration();
 			}
@@ -66,7 +65,7 @@ Class Bootstrap {
 		if (file_exists($model_file)) {
 			require_once $model_file;
 			$this->controller->model = new $model_name($controller);
-		} 
+		}
 	}
 
 	private function loadMethod($action, $arg1, $arg2){
