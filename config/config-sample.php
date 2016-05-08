@@ -2,7 +2,7 @@
 
 date_default_timezone_set('Europe/Moscow');
 
-define('DEVELOP', false);
+define('DEVELOP', true);
 
 define('DB_DRIVE', 'mysql');
 define('DB_HOST', '127.0.0.1');
