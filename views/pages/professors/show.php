@@ -9,8 +9,12 @@
 		<a href="/professors" class="btn btn-primary pull-right">← back to all professors</a>
 	</div>
 	<p>birth date: <?php echo $birth; ?></p>
-	<p class="h4">about professor:</p>
-	<p><?php echo $about; ?></p>
+
+	<?php if($about): ?>
+		<p class="h4">about professor:</p>
+		<p><?php echo $about; ?></p>
+	<?php endif ?>
+
 	<a href="/professors/comment/<?php echo $id ?>" class="btn btn-success">Rate this professor</a>
 
 	<?php if ($rated): ?>
