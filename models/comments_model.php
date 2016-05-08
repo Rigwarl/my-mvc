@@ -5,8 +5,9 @@ Class Comments_Model extends Model{
 	protected $rules = array(
 		'prof_id'      => 'required',
 		'user_id'      => 'required',
-		'title'        => 'required',
+		'subject'      => 'required',
 		'year'         => 'required|date:Y',
+		'title'        => 'required',
 		'clarity'      => 'required|int|min:1|max:5',
 		'knowledge'    => 'required|int|min:1|max:5',
 		'interest'     => 'required|int|min:1|max:5',
