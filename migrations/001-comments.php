@@ -11,7 +11,7 @@ $comments_sql = 'CREATE TABLE `comments` (
 					`estimate` int NOT NULL,
 					`comment` text,
 					`added` timestamp,
-					FOREIGN KEY (prof_id) 
+					FOREIGN KEY (prof_id)
         				REFERENCES professors(id),
         			FOREIGN KEY (user_id)
         				REFERENCES users(id)
@@ -19,8 +19,8 @@ $comments_sql = 'CREATE TABLE `comments` (
 $comments = $this->db->query($comments_sql);
 
 $professors_sql = 'ALTER TABLE `professors`
-					ADD rated int NOT NULL default 0,
-					ADD rating decimal(3,1) NULL
+					ADD `rated` int NOT NULL default 0,
+					ADD `rating` decimal(3,1) NULL
 				';
 $professors = $this->db->query($professors_sql);
 
