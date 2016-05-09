@@ -74,21 +74,34 @@ Class Professors extends Controller{
 		}
 
 		$comment = array(
-			'title'    => '',
-			'estimate' => '',
-			'comment'  => ''
+			'subject'      => '',
+			'year'         => '',
+			'title'        => '',
+			'clarity'      => '',
+			'knowledge'    => '',
+			'interest'     => '',
+			'helpfulness'  => '',
+			'exactingness' => '',
+			'hardness'     => '',
+			'comment'      => ''
 		);
 		$errors = array();
 
 		if (globals::is_post()) {
 			$comment = globals::post(array(
+				'subject',
+				'year',
 				'title',
-				'estimate',
+				'clarity'      => 'int',
+				'knowledge'    => 'int',
+				'interest'     => 'int',
+				'helpfulness'  => 'int',
+				'exactingness' => 'int',
+				'hardness'     => 'int',
 				'comment'
 			));
 			$comment['prof_id'] = $id;
 			$comment['user_id'] = $this->user->get('id');
-			$comment['estimate'] = (int) $comment['estimate'];
 
 			$comments_model->load($comment);
 			$comments_model->validate();
@@ -109,9 +122,10 @@ Class Professors extends Controller{
 			$errors = array_merge($errors, $comments_model->errors);
 		}
 
-		$data = array_merge($comment, $professor);
+		$data = $comment;
+		$data['professor'] = $professor;
 		$this->view->errors = $errors;
-		$this->view->title = $title = 'Rating professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
+		$this->view->title = $title = 'Оценка преподавателя ' . $professor['name'] . ' ' . $professor['patronymic'] . ' ' . $professor['surname'];
 		$this->view->render('professors/comment', $data);
 	}
 }

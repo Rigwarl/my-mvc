@@ -6,7 +6,7 @@ Class Comments_Model extends Model{
 		'prof_id'      => 'required',
 		'user_id'      => 'required',
 		'subject'      => 'required',
-		'year'         => 'required|date:Y',
+		'year'         => 'required|date:Y|min:1900|max:2100',
 		'title'        => 'required',
 		'clarity'      => 'required|int|min:1|max:5',
 		'knowledge'    => 'required|int|min:1|max:5',
