@@ -7,13 +7,13 @@ Class Comments_Model extends Model{
 		'user_id'      => 'required',
 		'subject'      => 'required',
 		'year'         => 'required|date:Y|min:1900|max:2100',
-		'title'        => 'required',
 		'clarity'      => 'required|int|min:1|max:5',
 		'knowledge'    => 'required|int|min:1|max:5',
 		'interest'     => 'required|int|min:1|max:5',
 		'helpfulness'  => 'required|int|min:1|max:5',
 		'exactingness' => 'required|int|min:1|max:5',
 		'hardness'     => 'required|int|min:1|max:5',
+		'title'        => 'required',
 		'comment'      => 'required'
 	);
 
@@ -26,7 +26,7 @@ Class Comments_Model extends Model{
 			$data['status'] = $status;
 		}
 
-		$sql = "SELECT c.id, c.title, c.estimate, c.comment, c.status, u.login
+		$sql = "SELECT c.id, c.added, c.subject, c.clarity, c.knowledge, c.interest, c.helpfulness, c.exactingness, c.hardness, c.title, c.comment, c.status, u.login
 				FROM users as u, comments as c
 				WHERE u.id = c.user_id AND c.prof_id=:prof_id$status_sql
 				ORDER BY c.id DESC";
