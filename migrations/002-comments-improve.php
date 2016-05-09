@@ -19,7 +19,9 @@ $professors_sql = 'ALTER TABLE `professors`
           ADD `clarity` decimal(3,1) NULL,
           ADD `knowledge` decimal(3,1) NULL,
           ADD `interest` decimal(3,1) NULL,
-          ADD `helpfulness` decimal(3,1) NULL
+          ADD `helpfulness` decimal(3,1) NULL,
+          ADD `exactingness` decimal(3,1) NULL,
+          ADD `hardness` decimal(3,1) NULL
         ';
 $professors = $this->db->query($professors_sql);
 
