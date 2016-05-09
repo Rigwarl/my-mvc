@@ -7,19 +7,19 @@ Class Comments extends Admin{
     }
 
     public function all(){
-        $this->showComments('All comments');
+        $this->showComments('Все комментарии');
     }
 
     public function newest(){
-        $this->showComments('New comments', 'new');
+        $this->showComments('Новые комментарии', 'new');
     }
 
     public function approved(){
-        $this->showComments('Approved comments', 'approved');
+        $this->showComments('Одобренные комментарии', 'approved');
     }
 
     public function disapproved(){
-        $this->showComments('Disapproved comments', 'disapproved');
+        $this->showComments('Отклоненные комментарии', 'disapproved');
     }
 
     private function showComments($title, $type = NULL){

@@ -1,33 +1,51 @@
 <div class="container">
-	<?php html::nav(array(
-		'All'         => '/admin/comments/all',
-		'New'         => '/admin/comments/newest',
-		'Approved'    => '/admin/comments/approved',
-		'Disapproved' => '/admin/comments/disapproved'
+	<? html::nav(array(
+		'Все'         => '/admin/comments/all',
+		'Новые'         => '/admin/comments/newest',
+		'Одобренные'    => '/admin/comments/approved',
+		'Отклоненные' => '/admin/comments/disapproved'
 	), 'nav nav-pills mb15'); ?>
 
-	<?php if ($this->sms('not_changed')): ?>
-		<p class='alert alert-danger'>Sorry, something went wrong. Please try later...</p>
-	<?php endif; ?>
+	<? if ($this->sms('not_changed')): ?>
+		<p class='alert alert-danger'>Извините, что-то пошло не так, попробуйте позже...</p>
+	<? endif; ?>
 
-	<h1><?php echo $this->title; ?></h1>
+	<h1><?= $this->title; ?></h1>
 
-	<?php foreach($comments as $comment): ?>
+	<? foreach($comments as $comment): ?>
 		<hr>
-		<p>Status: <strong><?php echo $comment['status']; ?></strong></p>
-		<p>Professor: <strong><?php echo $comment['name'] . ' ' . $comment['patronymic'] . ' ' . $comment['surname']; ?></strong></p>
-		<p>User: <strong><?php echo $comment['login']; ?></strong></p>
-		<p>Estimate: <strong><?php echo $comment['estimate']; ?></strong></p>
-		<p>Comment: <strong><?php echo $comment['comment']; ?></strong></p>
+		<div class="row">
+			<div class="col-md-4">
+				<p>Статус: <b><?= $comment['status']; ?></b></p>
+				<p>Преподаватель: <b><?= $comment['name'] . ' ' . $comment['patronymic'] . ' ' . $comment['surname']; ?></b></p>
+				<p>Пользователь: <b><?= $comment['login']; ?></b></p>
+				<p>Добавлен: <b><?= $comment['added']; ?></b></p>
+				<p>Предмет: <b><?= $comment['subject']; ?></b></p>
+				<p>Год обучения: <b><?= $comment['year']; ?></b></p>
+			</div>
 
-		<?php if ($comment['status'] !== 'approved'): ?>
-			<a href="/admin/comments/change/<?php echo $comment['id']; ?>/approve" class="btn btn-success">Approve</a>
-		<?php endif; ?>
+			<div class="col-md-3">
+				<p><b><?= $comment['clarity'] ?> </b>ясность изложения</p>
+				<p><b><?= $comment['knowledge'] ?> </b>владение предметом</p>
+				<p><b><?= $comment['interest'] ?> </b> увлекательность занятий</p>
+				<p><b><?= $comment['helpfulness'] ?> </b>комфортность общения</p>
+				<p><b><?= $comment['exactingness'] ?> </b>требовательность</p>
+				<p><b><?= $comment['hardness'] ?> </b> сложность сдачи экзамена</p>
+			</div>
+			<div class="col-md-5">
+				<p>Заголовок: <b><?= $comment['title']; ?></b></p>
+				<p>Комментарий: <b><?= $comment['comment']; ?></b></p>
+			</div>
+		</div>
 
-		<?php if($comment['status'] !== 'disapproved'): ?>
-			<a href="/admin/comments/change/<?php echo $comment['id']; ?>/disapprove" class="btn btn-danger">Disapprove</a>
-		<?php endif; ?>
+		<? if ($comment['status'] !== 'approved'): ?>
+			<a href="/admin/comments/change/<?= $comment['id']; ?>/approve" class="btn btn-success">Одобрить</a>
+		<? endif; ?>
 
-		<a href="/admin/comments/edit/<?php echo $comment['id']; ?>" class="btn btn-primary">Edit</a>
-	<?php endforeach; ?>
+		<? if($comment['status'] !== 'disapproved'): ?>
+			<a href="/admin/comments/change/<?= $comment['id']; ?>/disapprove" class="btn btn-danger">Отклонить</a>
+		<? endif; ?>
+
+		<a href="/admin/comments/edit/<?= $comment['id']; ?>" class="btn btn-primary">Редактировать</a>
+	<? endforeach; ?>
 </div>
