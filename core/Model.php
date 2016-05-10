@@ -14,14 +14,15 @@ Class Model {
 			self::$singleDb = new PDO(
 				DB_DRIVE . ':host=' .
 				DB_HOST . ';dbname=' .
-				DB_NAME, 
-				DB_USER,  
+				DB_NAME,
+				DB_USER,
 				DB_PASSWORD
 			);
 
 			if (DEVELOP){
 				self::$singleDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}
+			self::$singleDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		}
 		$this->db = self::$singleDb;
 		$this->table = $table;
@@ -30,7 +31,7 @@ Class Model {
 	public function load($data, $name = ''){
 		$name = $name ? "_$name" : "";
 		foreach ($this->{'rules' . $name} as $key => $item){
-			$this->{'data' . $name}[$key] = isset($data[$key]) ? $data[$key] : ''; 
+			$this->{'data' . $name}[$key] = isset($data[$key]) ? $data[$key] : '';
 		}
 		return $this;
 	}
@@ -49,7 +50,7 @@ Class Model {
 	public function getAll(){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} ORDER BY id DESC");
 		$sth->execute();
-		
+
 		return $sth->fetchAll();
 	}
 
@@ -123,7 +124,7 @@ Class Model {
 		foreach ($data as &$item){
 			$item = '%' . $item . '%';
 		}
-		
+
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
