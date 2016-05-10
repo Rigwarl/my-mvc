@@ -51,7 +51,7 @@ Class Model {
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} ORDER BY id DESC");
 		$sth->execute();
 
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function get($data, $separator = 'AND'){
@@ -59,7 +59,7 @@ Class Model {
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function getOne($data, $separator = 'AND'){
@@ -67,28 +67,28 @@ Class Model {
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
-		return $sth->fetch();
+		return $sth->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function getBy($name, $value){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name ORDER BY id DESC");
 		$sth->execute(array($name => $value));
 
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function getOneBy($name, $value){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name ORDER BY id DESC");
 		$sth->execute(array($name => $value));
 
-		return $sth->fetch();
+		return $sth->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function getID($id){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE id=:id");
 		$sth->execute(array('id' => $id));
 
-		return $sth->fetch();
+		return $sth->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function save($data = null){
@@ -128,7 +128,7 @@ Class Model {
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private function sqlSet($data, $separator = ', '){
