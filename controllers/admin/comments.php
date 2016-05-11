@@ -76,10 +76,7 @@ Class Comments extends Admin{
       if ($this->model->is_valid) {
         $saved = $this->model->update($id);
 
-        $professors_model = $this->loadModel('professors');
-        $recalc = true;//$professors_model->recalc($comment['prof_id']);
-
-        if ($saved && $recalc) {
+        if ($saved) {
           $this->view->msgs['saved'] = true;
         } else {
           $errors['save'] = true;
@@ -87,7 +84,6 @@ Class Comments extends Admin{
       }
     }
 
-    $comment['id'] = $id;
     $this->view->title = 'Редактирование комментария';
     $this->view->errors = array_merge($errors, $this->model->errors);
     $this->view->render('admin/comments/edit', $comment);
