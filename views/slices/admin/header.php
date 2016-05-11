@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title><?php echo $this->title; ?></title>
+	<title><?= $this->title; ?></title>
 
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/style.css">
@@ -17,19 +17,19 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </button>
-		  <a class="navbar-brand" href="/admin">Dashboard</a>
+		  <a class="navbar-brand" href="/admin">Админка</a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<?php html::nav(array(
-				'Professors' => '/admin/professors',
-				'Comments'   => '/admin/comments'
+			<? html::nav(array(
+				'Преподаватели' => '/admin/professors',
+				'Комментарии'   => '/admin/comments'
 			), 'nav navbar-nav'); ?>
 
-			<?php html::nav(array(
-				'Back to site' => '/',
+			<? html::nav(array(
+				'Вернуться на сайт' => '/',
 				$this->user->get('login') => '#',
-				'Logout' => '/auth/logout'
+				'Выход' => '/auth/logout'
 			), 'nav navbar-nav navbar-right'); ?>
 		</div>
 	</nav>

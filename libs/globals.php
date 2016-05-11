@@ -9,8 +9,13 @@ Class globals {
 		if (is_array($value)) {
 			$result = array();
 
-			foreach ($value as $item) {
-				$result[$item] = self::get_one_from($item, $array);
+			foreach ($value as $key => $item) {
+				if (!is_int($key)) {
+					$result[$key] = self::get_one_from($key, $array);
+					self::convert($result[$key], $item);
+				} else {
+					$result[$item] = self::get_one_from($item, $array);
+				}
 			}
 		} else {
 			$result = self::get_one_from($value, $array);
@@ -21,13 +26,25 @@ Class globals {
 
 	private static function set_array(&$array_old, $array_new){
 		foreach ($array_new as $key => $value){
-			$array_old[$key] = $value; 
+			$array_old[$key] = $value;
 		}
 	}
 
 	private static function unset_array(&$array_old, $array_new){
 		foreach ($array_new as $item){
-			unset($array_old[$item]); 
+			unset($array_old[$item]);
+		}
+	}
+
+	private static function convert(&$value, $format){
+		switch ($format) {
+			case 'int':
+				$value = $value === '' ? '' : intval($value);
+				break;
+
+			default:
+				throw new exception('invalid format');
+				break;
 		}
 	}
 

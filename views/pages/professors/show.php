@@ -1,38 +1,65 @@
 <div class="container">
-	<?php if($this->sms('wait')): ?>
-		<p class='alert alert-danger'>You can rate each professor once every six months</p>
-	<?php elseif($this->sms('added')): ?>
-		<p class='alert alert-success'>Comment is added successfully but it will take time to be approved by moderator.</p>
-	<?php endif; ?>
-	<div class="clearfix">
-		<h1 class="pull-left"><?php echo $name . " " . $patronymic . " " . $surname; ?></h1>
-		<a href="/professors" class="btn btn-primary pull-right">← back to all professors</a>
-	</div>
-	<p>birth date: <?php echo $birth; ?></p>
-	<p class="h4">about professor:</p>
-	<p><?php echo $about; ?></p>
-	<a href="/professors/comment/<?php echo $id ?>" class="btn btn-success">Rate this professor</a>
+	<? if($this->sms('wait')): ?>
+		<p class='alert alert-danger'>Вы можете оценивать преподавателя не чаще чем раз в полгода</p>
+	<? elseif($this->sms('added')): ?>
+		<p class='alert alert-success'>Ваша оценка была добавлена и отправлена на модерацию</p>
+	<? endif; ?>
 
-	<?php if ($rated): ?>
-		<p class="h3">Average rating: <?php echo $rating; ?>, rated <?php echo $rated; ?> times</p>
-	<?php else: ?>
-		<p class="h3">Not rated yet</p>
-	<?php endif; ?>
-	
-	<?php if ($comments): ?>
-		<h3>Comments</h3>
-		<?php foreach ($comments as $comment): ?>
+	<div class="clearfix">
+		<h1 class="pull-left"><?= $name . " " . $patronymic . " " . $surname; ?></h1>
+		<a href="/professors" class="btn btn-primary pull-right">← назад ко всем преподавателям</a>
+	</div>
+
+	<p>Дата рождения: <?= $birth; ?></p>
+
+	<? if($about): ?>
+		<p class="h4">О преподавателе:</p>
+		<p><?= $about; ?></p>
+	<? endif ?>
+
+	<a href="/professors/comment/<?= $id ?>" class="btn btn-success">Оценить преподавателя</a>
+
+	<? if ($rated): ?>
+		<p class="h2 mb20">Общая оценка: <?= $rating; ?> из <?= $rated; ?> отзывов</p>
+		<div class="row">
+			<div class="col-md-4">
+				<p class="lead"><span class="h3"><?= $clarity; ?> </span>ясность изложения</p>
+				<p class="lead"><span class="h3"><?= $knowledge; ?> </span>владение предметом</p>
+				<p class="lead"><span class="h3"><?= $interest; ?> </span> увлекательность занятий</p>
+			</div>
+			<div class="col-md-4">
+				<p class="lead"><span class="h3"><?= $helpfulness; ?> </span>комфортность общения</p>
+				<p class="lead"><span class="h3"><?= $exactingness; ?> </span>требовательность</p>
+				<p class="lead"><span class="h3"><?= $hardness; ?> </span> сложность сдачи экзамена</p>
+			</div>
+		</div>
+	<? else: ?>
+		<p class="h3">Этого преподавателя еще не оценили</p>
+	<? endif; ?>
+
+	<? if ($comments): ?>
+		<h3>Оценки:</h3>
+		<? foreach ($comments as $comment): ?>
 			<hr>
-			<p><?php echo $comment['login']; ?></p>
 			<div class="row">
-				<div class="col-md-1">
-					<p class="h3 mt5"><?php echo $comment['estimate']; ?></p>
+				<div class="col-md-2">
+					<p><b><?= date('d-m-Y', strtotime($comment['added'])); ?></b></p>
+					<p><?= $comment['login']; ?></p>
+					<p><?= $comment['subject']; ?></p>
 				</div>
-				<div class="col-md-11">
-					<p class="h4"><?php echo $comment['title']; ?></p>
-					<p><?php echo $comment['comment']; ?></p>
+				<div class="col-md-3">
+					<p><span class="h4"><?= $comment['clarity']; ?> </span>ясность изложения</p>
+					<p><span class="h4"><?= $comment['knowledge']; ?> </span>владение предметом</p>
+					<p><span class="h4"><?= $comment['interest']; ?> </span> увлекательность занятий</p>
+					<p><span class="h4"><?= $comment['helpfulness']; ?> </span>комфортность общения</p>
+					<p><span class="h4"><?= $comment['exactingness']; ?> </span>требовательность</p>
+					<p><span class="h4"><?= $comment['hardness']; ?> </span> сложность сдачи экзамена</p>
+				</div>
+				<div class="col-md-7">
+					<p><span class="h4"><?= $comment['title']; ?></span></p>
+					<p><?= $comment['comment']; ?></p>
 				</div>
 			</div>
-		<?php endforeach; ?>
-	<?php endif; ?>
+		<? endforeach; ?>
+	<? endif; ?>
 </div>

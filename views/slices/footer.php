@@ -1,7 +1,7 @@
 <footer class="container">
 	<hr>
-	<p class="pull-left">Site is under construction, please be patient</p>
-	<p class="pull-right">2015</p>
+	<p class="pull-left">Проект в разработке, будьте бдительны!</p>
+	<p class="pull-right">2016</p>
 </footer>
 
 </body>

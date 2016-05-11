@@ -14,14 +14,15 @@ Class Model {
 			self::$singleDb = new PDO(
 				DB_DRIVE . ':host=' .
 				DB_HOST . ';dbname=' .
-				DB_NAME, 
-				DB_USER,  
+				DB_NAME,
+				DB_USER,
 				DB_PASSWORD
 			);
 
 			if (DEVELOP){
 				self::$singleDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}
+			self::$singleDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		}
 		$this->db = self::$singleDb;
 		$this->table = $table;
@@ -30,7 +31,7 @@ Class Model {
 	public function load($data, $name = ''){
 		$name = $name ? "_$name" : "";
 		foreach ($this->{'rules' . $name} as $key => $item){
-			$this->{'data' . $name}[$key] = isset($data[$key]) ? $data[$key] : ''; 
+			$this->{'data' . $name}[$key] = isset($data[$key]) ? $data[$key] : '';
 		}
 		return $this;
 	}
@@ -49,8 +50,8 @@ Class Model {
 	public function getAll(){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} ORDER BY id DESC");
 		$sth->execute();
-		
-		return $sth->fetchAll();
+
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function get($data, $separator = 'AND'){
@@ -58,7 +59,7 @@ Class Model {
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function getOne($data, $separator = 'AND'){
@@ -66,28 +67,28 @@ Class Model {
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
-		return $sth->fetch();
+		return $sth->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function getBy($name, $value){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name ORDER BY id DESC");
 		$sth->execute(array($name => $value));
 
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function getOneBy($name, $value){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $name=:$name ORDER BY id DESC");
 		$sth->execute(array($name => $value));
 
-		return $sth->fetch();
+		return $sth->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function getID($id){
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE id=:id");
 		$sth->execute(array('id' => $id));
 
-		return $sth->fetch();
+		return $sth->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function save($data = null){
@@ -123,11 +124,11 @@ Class Model {
 		foreach ($data as &$item){
 			$item = '%' . $item . '%';
 		}
-		
+
 		$sth = $this->db->prepare("SELECT * FROM {$this->table} WHERE $set ORDER BY id DESC");
 		$sth->execute($data);
 
-		return $sth->fetchAll();
+		return $sth->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private function sqlSet($data, $separator = ', '){

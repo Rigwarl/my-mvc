@@ -5,7 +5,7 @@ Class Professors extends Admin{
 	public function index(){
 		$data = array('professors' => $this->model->getAll());
 
-		$this->view->title = 'Admin - Professors';
+		$this->view->title = 'Преподаватели';
 		$this->view->render('admin/professors/index', $data);
 	}
 
@@ -25,7 +25,7 @@ Class Professors extends Admin{
 		$comments_model = $this->loadModel('comments');
 		$professor['comments'] = $comments_model->getProfComments($id, $status);
 
-		$this->view->title = 'Comments about professor '. $professor['name'] . ' ' . $professor['patronymic'] . ' ' . $professor['surname'];
+		$this->view->title = 'Оценки преподавателя '. $professor['name'] . ' ' . $professor['patronymic'] . ' ' . $professor['surname'];
 		$this->view->render('admin/professors/comments', $professor);
 	}
 
@@ -38,7 +38,7 @@ Class Professors extends Admin{
 			'about' => ''
 		);
 		$errors = array();
-		$title = 'New professor';
+		$title = 'Новый преподаватель';
 
 		if ($id){
 			// save prof to var, we will show it on get method
@@ -51,7 +51,7 @@ Class Professors extends Admin{
 			// save prof to new var we will use it and show if update on post fail
 			$data_old = $data;
 
-			$title = 'Professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
+			$title = 'Преподаватель ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
 		}
 
 		if (globals::is_post()){
@@ -72,7 +72,7 @@ Class Professors extends Admin{
 					if ($this->model->update($id)) {
 						// if we updated him show success msg
 						$this->view->msgs['saved'] = true;
-						$title = 'Professor ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
+						$title = 'Преподаватель ' . $data['name'] . ' ' . $data['patronymic'] . ' ' . $data['surname'];
 					} else {
 						//if not we show old data
 						$errors['save'] = true;
