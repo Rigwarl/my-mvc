@@ -44,7 +44,7 @@ Class Comments extends Admin{
     $updated = $this->model->update($id, array('status' => $status . 'd'));
 
     $professors_model = $this->loadModel('professors');
-    $recalculated = true;//$professors_model->recalc($comment['prof_id']);
+    $recalculated = $professors_model->recalc($comment['prof_id']);
 
     if (!$updated || !$recalculated) {
       globals::set_session('not_changed');
