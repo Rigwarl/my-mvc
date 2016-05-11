@@ -3,7 +3,8 @@
 $version = 002;
 
 $comments_sql = 'ALTER TABLE `comments`
-          DROP COLUMN `estimate`,
+          DROP `estimate`,
+          MODIFY `added` timestamp NOT NULL default CURRENT_TIMESTAMP,
           ADD `subject` varchar(30) NOT NULL,
           ADD `year` int NOT NULL,
           ADD `clarity` int NOT NULL,
@@ -16,6 +17,8 @@ $comments_sql = 'ALTER TABLE `comments`
 $comments = $this->db->query($comments_sql);
 
 $professors_sql = 'ALTER TABLE `professors`
+          ADD `start` YEAR(4) NULL,
+          ADD `end` YEAR(4) NULL,
           ADD `clarity` decimal(3,1) NULL,
           ADD `knowledge` decimal(3,1) NULL,
           ADD `interest` decimal(3,1) NULL,
