@@ -25,7 +25,9 @@ Class validator {
 		$rules = explode('|', $rules);
 
 		// if not required and empty stop checking
-		$not_required = $rules[0] === 'not_required' && $field === '';
+		if ($rules[0] === 'not_required' && $field === '') {
+			return;
+		}
 
 		foreach ($rules as $rule) {
 			$rule = explode(':', $rule);
@@ -36,7 +38,7 @@ Class validator {
 			$error = self::check_rule($field, $rule_val);
 
 			// stop checking field on first error
-			if (self::$error || $not_required){
+			if (self::$error){
 				self::$error = false;
 				break;
 			}
