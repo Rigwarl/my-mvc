@@ -21,19 +21,22 @@ Class validator {
 	}
 
 	private static function check_field($rules){
+		$field = isset(self::$data[self::$field_name]) ? self::$data[self::$field_name] : '';
 		$rules = explode('|', $rules);
+
+		// if not required and empty stop checking
+		$not_required = $rules[0] === 'not_required' && $field === '';
 
 		foreach ($rules as $rule) {
 			$rule = explode(':', $rule);
 
 			self::$rule_name = $rule[0];
 			$rule_val = isset($rule[1]) ? $rule[1] : false;
-			$field = isset(self::$data[self::$field_name]) ? self::$data[self::$field_name] : '';
 
 			$error = self::check_rule($field, $rule_val);
 
 			// stop checking field on first error
-			if (self::$error){
+			if (self::$error || $not_required){
 				self::$error = false;
 				break;
 			}
@@ -66,7 +69,7 @@ Class validator {
 				$equal_to = isset(self::$data[$rule_val]) ? self::$data[$rule_val] : '';
 				self::check($field != $equal_to);
 				break;
-			
+
 			case 'date':
 				$format = $rule_val ?: 'Y-m-d';
 				$d = DateTime::createFromFormat($format, $field);
