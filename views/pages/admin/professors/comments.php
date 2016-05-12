@@ -21,6 +21,9 @@
         <p>Добавлен: <b><?= $comment['added']; ?></b></p>
         <p>Предмет: <b><?= $comment['subject']; ?></b></p>
         <p>Год обучения: <b><?= $comment['year']; ?></b></p>
+        <? if($start && $start > $comment['year'] || $end && $end < $comment['year']): ?>
+          <p class="text-danger">Год обучения не соответствует</p>
+        <? endif; ?>
       </div>
 
       <div class="col-md-3">
