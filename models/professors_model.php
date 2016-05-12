@@ -7,6 +7,8 @@ Class Professors_Model extends Model{
 		'patronymic' => 'required',
 		'surname'    => 'required',
 		'birth'      => 'required|date',
+		'start'      => 'not_required|date:Y',
+		'end'        => 'not_required|date:Y',
 		'about'      => 'not_required'
 	);
 
