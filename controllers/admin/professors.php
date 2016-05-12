@@ -31,11 +31,13 @@ Class Professors extends Admin{
 
 	public function edit($id){
 		$data = array(
-			'name' => '',
+			'name'       => '',
 			'patronymic' => '',
-			'surname' => '',
-			'birth' => '',
-			'about' => ''
+			'surname'    => '',
+			'birth'      => '',
+			'about'      => '',
+			'start'      => '',
+			'end'        => ''
 		);
 		$errors = array();
 		$title = 'Новый преподаватель';
@@ -47,6 +49,9 @@ Class Professors extends Admin{
 			if (!$data){
 				$this->error->show('404');
 			}
+
+			$data['start'] = $data['start'] ?: '';
+			$data['end'] = $data['end'] ?: '';
 
 			// save prof to new var we will use it and show if update on post fail
 			$data_old = $data;
@@ -60,7 +65,9 @@ Class Professors extends Admin{
 				'patronymic',
 				'surname',
 				'birth',
-				'about'
+				'about',
+				'start',
+				'end'
 			));
 
 			$this->model->load($data);
